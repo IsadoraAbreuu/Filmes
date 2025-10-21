@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+body {
+  background: url('https://wallpapers.com/images/hd/pretty-pink-background-hjrm2cz6p91aa486.jpg') no-repeat center center fixed; /* Se você quiser usar uma imagem de fundo */
+  background-size: cover; 
+  height: 100vh; 
+  margin: 0;
+}
+
+.container {
+  /* 1. O principal para o desfoque */
+  backdrop-filter: blur(10px); /* Ajuste o valor (ex: 5px a 15px) para mais ou menos desfoque */
+  -webkit-backdrop-filter: blur(10px); /* Para compatibilidade com alguns navegadores (como o Safari) */
+
+  /* 2. O fundo semi-transparente para dar a cor e a transparência do "vidro" */
+  background: rgba(255, 255, 255, 0.2); /* Branco com 20% de opacidade. Ajuste a cor e a opacidade (último valor) */
+
+  /* 3. Opções extras para aprimorar o visual de "vidro" */
+  border-radius: 16px; /* Bordas arredondadas, como na imagem */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Uma borda sutil e clara para delimitar o vidro */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidade */
+}
+
