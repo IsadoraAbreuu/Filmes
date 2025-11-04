@@ -4,13 +4,18 @@ import Catalogo from '../../assets/catalogo-branco.svg'
 import Favoritos from '../../assets/favoritos-branco.svg'
 import Adicionar from '../../assets/adicionar-branco.svg'
 import Logout from '../../assets/logout.svg'
+import Logo from '../../assets/logo.svg'
+import Flogo from '../../assets/flogo.svg'
 
 export default function SideBar() {
     return (
         <nav className="sideBar">
         <ul className='containerSide'>
             <li className='topicoSide'>
-                <a className='rotaSide' href="/home">Logo</a>
+                <a className='rotaSide' href="/home">
+                    <img className='FlogoSide' src={Flogo} alt='Apenas o F da logo do FilHub'/>
+                    <span><img className='logoSide' src={Logo} alt='Logo do FilHub'/></span>
+                </a>
             </li>
             <li className='topicoSide'>
                 <a className='rotaSide' href="/home">

@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     margin: 2rem 0 0 1rem;
-    width: 5rem;
+    width: 4rem;
     height: 90vh;
     padding: 1rem 0;
     background:  rgba(255, 255, 255, 0.3);
@@ -13,9 +13,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* alinhamento à esquerda */
+    padding-left: 0.1rem; /* leve recuo */
     transition: width 0.4s ease;
     overflow: hidden;
+    
 }
 
 .sideBar:hover {
@@ -27,9 +29,9 @@
 
 .containerSide {
     display: flex;
+    align-items: flex-start;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
     height: 100%;
     list-style: none;
     padding: 0;
@@ -96,4 +98,12 @@
 /* logout no final */
 .topicoSide:last-child {
     margin-top: auto;
+}
+
+.FlogoSide {
+    width: 300px;
+}
+
+.logoSide {
+    width: 50px;
 }

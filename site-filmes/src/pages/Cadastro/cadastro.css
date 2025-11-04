@@ -1,0 +1,146 @@
+.cadastroBackground {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../../assets/gradiente-fundo.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.cadastroContainer { 
+    display: flex;
+    width: 863px;
+    height: 501px;
+    background-color: rgba(255, 255, 255, 0.49);
+    backdrop-filter: blur(10px);
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
+    align-items: center;
+}
+
+.cadastroBox {
+    border-radius: 8px;
+    width: 320px;
+    text-align: start;
+    position: absolute;
+    right: 0;
+    margin-right: 4rem;
+}
+
+.cadastroBox h3 {
+    margin-top: -2.5rem;
+    font-weight: 320;
+    font-size: 34px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.cadastroBox h2 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #FFFF, #CCCCCC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: -1.3rem;
+}
+
+.cadastroBox form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.cadastroBox label {
+    margin-bottom: 5px;
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.cadastroBox input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 20px;
+    font-size: 13px;
+    width: 310px;
+}
+
+.cadastroBox button {
+    display: block;
+    margin: 0.8rem auto;
+    background: linear-gradient(90deg, #CC2985, #DD6F6C, #EDB553);
+    color: #FFFF;
+    font-weight: 700;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    padding: 8px;
+    width: 184px;
+    height: 47px;
+    border-radius: 29px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.imagemBoxCadastro {
+    margin: 0;
+}
+
+.loginTexto {
+    display: inline-block;
+    flex-direction: row;
+    font-size: 13px;
+    color: #FFFF;
+    text-align: center;
+    min-width: 300px;
+    margin-bottom: -2rem;
+
+}
+
+.loginTexto a {
+    text-decoration: underline;
+    color: #FFFF;
+    font-weight: 620;
+    margin-left: 4px;
+}
+
+.imagemCadastroContainer {
+    background-color: #000;
+    width: 368px;
+    height: 459px;
+    border-radius: 50px;
+    place-items: center;
+    position: absolute;
+    left: 0;               
+    margin-left: 1.2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+}
+
+.escritoBoxCadastro h3 {
+    font-size: 30px;
+    background: linear-gradient(90deg, #FFFF, #CCCCCC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: end;
+    font-weight: 800;
+    margin-top: 2.2rem;
+    margin-left: 5.2rem;
+}
+
+.escritoBoxCadastro span {
+    background: linear-gradient(90deg, #CC2985, #DD6F6C, #EDB553);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.imagemBoxCadastro {
+    place-items: center;
+    margin-top: -11.5rem;
+}
+

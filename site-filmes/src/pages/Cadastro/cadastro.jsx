@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import "./login.css";
+import "./cadastro.css";
 import MockupLogin from '../../assets/img-login.svg'
 
-const Login = () => {
+const Cadastro = () => {
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
@@ -40,12 +41,21 @@ const Login = () => {
   };
 
   return (
-    <div className="loginBackground">
-      <div className="loginContainer">
-        
-        <div className="loginBox">
+    <div className="cadastroBackground">
+      <div className="cadastroContainer">
+
+      <div className="imagemCadastroContainer">
+          <div className="escritoBoxCadastro">
+            <h3>Seja <br />Bem-Vindo <br />ao <span>FilHub</span></h3>
+          </div>
+          <div className="imagemBoxCadastro">
+            <img src={MockupLogin} alt="Mockup de notebook e celular com imagem do site" />
+          </div>
+        </div>
+
+        <div className="cadastroBox">
           <h3>Faça aqui seu</h3>
-            <h2>Login</h2>
+            <h2>Cadastro</h2>
             <form onSubmit={handleSubmit}>
             <label>Usuário:</label>
             <input
@@ -54,6 +64,15 @@ const Login = () => {
                 onChange={(e) => setUsuario(e.target.value)}
                 required
                 placeholder="Ex: isadoraabreu"
+            />
+
+            <label>Email:</label>
+            <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="Ex: isa.linda@email.com"
             />
 
             <label>Senha:</label>
@@ -67,27 +86,17 @@ const Login = () => {
 
             {error && <p className="error">{error}</p>}
 
-            <button type="submit">Entrar</button>
+            <button type="submit">Cadastrar</button>
 
-            <p className="cadastroTexto">
-              Ainda não possui uma conta? 
-              <a href="/cadastro">Cadastre-se</a>
+            <p className="loginTexto">
+              Já tem uma conta? 
+              <a href="/login">Faça login</a>
             </p>
             </form>
         </div>
-
-        <div className="imagemLoginContainer">
-          <div className="escritoBoxLogin">
-            <h3>Seja <br />Bem-Vindo <br />ao <span>FilHub</span></h3>
-          </div>
-          <div className="imagemBoxLogin">
-            <img src={MockupLogin} alt="Mockup de notebook e celular com imagem do site" />
-          </div>
-        </div>
-
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Cadastro;
