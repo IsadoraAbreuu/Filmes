@@ -1,0 +1,100 @@
+.loginBackground {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../../assets/gradiente-fundo.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.loginContainer { 
+  width: 863px;
+  height: 501px;
+  background-color: rgba(255, 255, 255, 0.49);
+  backdrop-filter: blur(10px);
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+}
+
+.loginBox {
+  padding: 40px 30px;
+  border-radius: 8px;
+  /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+  width: 320px;
+  text-align: start;
+}
+
+.loginBox h3 {
+  font-weight: 320;
+  font-size: 34px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.loginBox h2 {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #FFFF, #CCCCCC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+.loginBox form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.loginBox label {
+  margin-bottom: 5px;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.loginBox input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.loginBox button {
+  background: linear-gradient(90deg, #CC2985, #DD6F6C, #EDB553);
+  color: #FFFF;
+  font-weight: 700;
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+  border: none;
+  padding: 8px;
+  width: 184px;
+  height: 47px;
+  border-radius: 29px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.loginBox button:hover {
+  background-color: #5b17a7;
+}
+
+.cadastroTexto {
+  display: inline-block;
+  flex-direction: row;
+  font-size: 13px;
+  color: #FFFF;
+  text-align: center;
+  
+}
+
+.cadastroTexto a {
+  text-decoration: underline;
+  color: #FFFF;
+  font-weight: 620;
+  margin-left: 4px;
+}
