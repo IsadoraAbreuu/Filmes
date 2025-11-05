@@ -1,0 +1,79 @@
+.cardFilme {
+  position: relative;
+  width: 260px;
+  height: 160px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.cardFilme:hover {
+  transform: scale(1.03);
+}
+
+.posterFilme {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.infoFilme {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.cabecalhoFilme {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tituloFilme {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.botaoFavoritos {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  padding: 6px;
+  cursor: pointer;
+  color: white;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.botaoFavoritos:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.detalhesFilme {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  margin-top: 0.3rem;
+}
+
+.detalhesFilme img {
+  color: #f9c74f;
+  margin-right: 0.2rem;
+}
+
+.divisao {
+  opacity: 0.7;
+}
+
