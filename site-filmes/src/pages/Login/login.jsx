@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./login.css";
-import MockupLogin from '../../assets/img-login.svg'
+import MockupLogin from '../../assets/images/img-login.svg'
 
 const Login = () => {
   const [usuario, setUsuario] = useState("");
@@ -41,8 +41,11 @@ const Login = () => {
 
   return (
     <div className="loginBackground">
+      <div className="logoEntrada">
+        <img src={Logo} alt="logo de FilHub"/>
+      </div>
+
       <div className="loginContainer">
-        
         <div className="loginBox">
           <h3>Faça aqui seu</h3>
             <h2>Login</h2>

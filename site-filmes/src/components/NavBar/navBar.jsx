@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './navBar.css'
-import lupaPesquisa from '../../assets/lupa-pesquisa.svg'
+import lupaPesquisa from '../../assets/icons/lupa-pesquisa.svg'
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
   const [lupaAtiva, setLupaAtiva] = useState(false)
@@ -35,13 +36,13 @@ export default function NavBar() {
     >
       <ul className="containerNav">
         <li className="topicoNav">
-          <a className="rotaNav" href="/home">Home</a>
+          <Link className="rotaNav" to="/home">Home</Link>
         </li>
         <li className="topicoNav">
-          <a className="rotaNav" href="/catalogo">Catálogo</a>
+          <Link className="rotaNav" to="/catalogo">Catálogo</Link>
         </li>
         <li className="topicoNav">
-          <a className="rotaNav" href="/sobre">Sobre</a>
+          <Link className="rotaNav" to="/sobre">Sobre</Link>
         </li>
         <li className="topicoNav">
           <div

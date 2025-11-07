@@ -7,4 +7,21 @@
 body, html {
   background-color: #000000;
   font-family: 'Montserrat', sans-serif;
+  color: #fff;
+}
+
+.appLayout {
+  display: flex;
+  height: 100vh;
+}
+
+.conteudo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pagina {
+  flex: 1;
+  padding: 1rem;
 }

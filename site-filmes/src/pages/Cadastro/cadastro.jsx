@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./cadastro.css";
-import MockupLogin from '../../assets/img-login.svg'
+import MockupLogin from '../../assets/images/img-login.svg'
+import Logo from '../../assets/images/logo.svg'
 
 const Cadastro = () => {
   const [usuario, setUsuario] = useState("");
@@ -42,8 +43,11 @@ const Cadastro = () => {
 
   return (
     <div className="cadastroBackground">
-      <div className="cadastroContainer">
+      <div className="logoEntrada">
+        <img src={Logo} alt="logo de FilHub"/>
+      </div>
 
+      <div className="cadastroContainer">
       <div className="imagemCadastroContainer">
           <div className="escritoBoxCadastro">
             <h3>Seja <br />Bem-Vindo <br />ao <span>FilHub</span></h3>

@@ -1,51 +1,52 @@
 import './sideBar.css'
-import CasaGradiente from '../../assets/casa-gradiente.svg'
-import Catalogo from '../../assets/catalogo-branco.svg'
-import Favoritos from '../../assets/favoritos-branco.svg'
-import Adicionar from '../../assets/adicionar-branco.svg'
-import Logout from '../../assets/logout.svg'
-import RestoLogo from '../../assets/resto-logo.svg'
-import Flogo from '../../assets/flogo.svg'
+import CasaGradiente from '../../assets/icons/casa-gradiente.svg'
+import Catalogo from '../../assets/icons/catalogo-branco.svg'
+import Favoritos from '../../assets/icons/favoritos-branco.svg'
+import Adicionar from '../../assets/icons/adicionar-branco.svg'
+import Logout from '../../assets/icons/logout.svg'
+import RestoLogo from '../../assets/images/resto-logo.svg'
+import Flogo from '../../assets/images/flogo.svg'
+import { Link } from "react-router-dom";    
 
 export default function SideBar() {
     return (
         <nav className="sideBar">
         <ul className='containerSide'>
             <li className='topicoSide'>
-                <a className='rotaSide' href="/home">
+                <Link className='rotaSide' to="/home">
                     <img className='FlogoSide' src={Flogo} alt='Apenas o F da logo do FilHub'/>
                     <span><img className='logoSide' src={RestoLogo} alt='Logo do FilHub'/></span>
-                </a>
+                </Link>
             </li>
             <li className='topicoSide'>
-                <a className='rotaSide' href="/home">
+                <Link className='rotaSide' to="/home">
                     <img src={CasaGradiente} alt='Casa'/>
                     <span>Home</span>
-                </a>
+                </Link>
             </li>
             <li className='topicoSide'>
-                <a className='rotaSide' href="/catalogo">
+                <Link className='rotaSide' to="/catalogo">
                     <img src={Catalogo} alt='Camera de filme'/>
                     <span>Catalogo</span>
-                </a>
+                </Link>
             </li>
             <li className='topicoSide'>
-                <a className='rotaSide' href="/favoritos">
+                <Link className='rotaSide' to="/favoritos">
                     <img src={Favoritos} alt='Coração'/>
                     <span>Favoritos</span>
-                </a>
+                </Link>
             </li>
             <li className='topicoSide'>
-                <a className='rotaSide' href="/adicionar">
+                <Link className='rotaSide' to="/adicionar">
                     <img src={Adicionar} alt='Ícone com mais de adicionar'/>
                     <span>Adicionar</span>
-                </a>
+                </Link>
             </li>
             <li className='topicoSide'>
-                <a className='rotaSide' href="/logout">
+                <Link className='rotaSide' to="/logout">
                     <img src={Logout} alt='Saindo da porta'/>
                     <span>Logout</span>
-                </a>
+                </Link>
             </li>
         </ul>
     </nav>

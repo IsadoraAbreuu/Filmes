@@ -1,36 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import NavBar from './components/NavBar/navBar'
-import SideBar from './components/Sidebar/sideBar'
-import Login from './pages/Login/login'
-import Cadastro from './pages/Cadastro/cadastro'
-import CardFilme from './components/Card/card'
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import NavBar from "./components/NavBar/navBar";
+import SideBar from "./components/Sidebar/sideBar";
+import Home from "./pages/Home/home";
+import Catalogo from "./pages/Catalogo/catalogo";
+import Favoritos from "./pages/Favoritos/favoritos";
+import AdicionarFilme from "./pages/AdicionarFilme/adicionar";
+import SobreNos from "./pages/SobreNos/sobre";
+import EditarFilme from "./pages/EditarFilme/editar";
+import Login from "./pages/Login/login";
+import Cadastro from "./pages/Cadastro/cadastro";
+import "./App.css";
 
-function App() {
-
-   const filme = {
-    poster: "https://m.media-amazon.com/images/I/81aA7hEEykL._AC_SL1500_.jpg",
-    titulo: "Toy Story",
-    avaliacao: "4.9",
-    ano: "1995",
-  };
-  
-
+// 🔹 Layout com Navbar e Sidebar
+function LayoutPrincipal() {
   return (
-     <div style={{ padding: "2rem", background: "#1e1e1e", minHeight: "100vh" }}>
-      <CardFilme
-        poster={filme.poster}
-        titulo={filme.titulo}
-        avaliacao={filme.avaliacao}
-        ano={filme.ano}
-      />
+    <div className="appLayout">
+      <SideBar />
+      <div className="conteudo">
+        <NavBar />
+        <div className="pagina">
+          <Outlet /> {/* Onde as páginas serão renderizadas */}
+        </div>
+      </div>
     </div>
-
-    
-
-  )
+  );
 }
 
-export default App
+// 🔹 Rotas principais
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Páginas que usam o layout */}
+        <Route element={<LayoutPrincipal />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/catalogo" element={<Catalogo />} />
+          <Route path="/favoritos" element={<Favoritos />} />
+          <Route path="/adicionarFilme" element={<AdicionarFilme />} />
+          <Route path="/sobreNos" element={<SobreNos />} />
+          <Route path="/editarFilme" element={<EditarFilme />} />
+        </Route>
+
+        {/* Páginas fora do layout */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;

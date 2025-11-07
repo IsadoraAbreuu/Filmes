@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('../../assets/gradiente-fundo.svg');
+    background-image: url('../../assets/images/gradiente-fundo.svg');
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
@@ -142,5 +142,12 @@
 .imagemBoxCadastro {
     place-items: center;
     margin-top: -11.5rem;
+}
+
+.logoEntrada img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 130px;
 }
 

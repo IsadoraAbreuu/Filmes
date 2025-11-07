@@ -23,14 +23,15 @@
   bottom: 0;
   left: 0;
   width: 100%;
+  height: 47%;
+  backdrop-filter: blur(4px);
   padding: 0.8rem 1rem;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
-  color: white;
+  color: #FFF;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 .cabecalhoFilme {
@@ -50,8 +51,11 @@
   border: none;
   border-radius: 50%;
   padding: 6px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-  color: white;
+  color: #FFF;
+  place-items: center;
   transition: background 0.3s ease, transform 0.2s;
 }
 
