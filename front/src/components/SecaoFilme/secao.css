@@ -1,0 +1,24 @@
+/* Remova ou modifique o bloco .carrosselFilmes existente */
+.listaFilmes {
+    /* Define o layout de grade */
+    display: grid; 
+    
+    /* Define 4 colunas de tamanho igual (fracionário) */
+    grid-template-columns: repeat(4, 1fr); 
+    
+    /* Espaçamento entre os cards, como você já tinha no 'gap' */
+    gap: 1rem; 
+    
+    /* Opcional: Adiciona margem vertical para separar do título */
+    margin-top: 1rem;
+    
+    /* Remove a rolagem lateral que era do carrossel */
+    overflow-x: visible; 
+}
+
+/* Opcional: Se quiser que o carrossel ocupe a largura máxima e fique centralizado */
+.secaoDeFilmes {
+    width: 80%; /* Ajuste a largura conforme o seu layout */
+    margin: 2rem auto; /* Centraliza a seção */
+}
+

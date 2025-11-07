@@ -1,0 +1,43 @@
+.user-info-container {
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 10px;
+    background-color: transparent; 
+    width: fit-content;
+}
+
+.user-icon-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(to right top, #ff9a00, #ff4c3b, #a528d2);
+    border: 3px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.icon-placeholder {
+    font-size: 30px;
+}
+
+.user-details-box {
+    background-color: rgba(80, 80, 80, 0.8);
+    border-radius: 25px;
+    padding: 8px 15px;
+}
+
+.user-name {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.2; 
+}
+
+.user-type {
+    font-size: 0.9em;
+    font-weight: 400;
+    margin: 0;
+}

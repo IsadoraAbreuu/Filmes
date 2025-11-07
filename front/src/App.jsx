@@ -31,17 +31,17 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Páginas que usam o layout */}
+    
         <Route element={<LayoutPrincipal />}>
           <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/adicionarFilme" element={<AdicionarFilme />} />
-          <Route path="/sobreNos" element={<SobreNos />} />
+          <Route path="/sobre" element={<SobreNos />} />
           <Route path="/editarFilme" element={<EditarFilme />} />
         </Route>
 
-        {/* Páginas fora do layout */}
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
       </Routes>

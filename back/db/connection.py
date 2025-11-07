@@ -7,7 +7,7 @@ DB_CONFIG = {
     "host": "localhost",
     "user": "root",
     "password": "senai",
-    "database": "Plataforma_Filmes_Atualizado3",
+    "database": "PLATAFORMA_FILMES",
     "raise_on_warnings": True,
     "use_pure": True
 }

@@ -22,7 +22,7 @@ def list_filmes() -> List[Dict]:
         GROUP_CONCAT(DISTINCT CONCAT(d.nome, ' ', d.sobrenome) SEPARATOR ', ') AS diretores,
         GROUP_CONCAT(DISTINCT p.nome SEPARATOR ', ') AS produtoras,
         GROUP_CONCAT(DISTINCT g.nome SEPARATOR ', ') AS generos
-    FROM Filmes f
+    FROM Filme f
     LEFT JOIN Ator_Filme af ON f.id_filme = af.id_filme
     LEFT JOIN Ator a ON af.id_ator = a.id_ator
     LEFT JOIN Diretor_Filme df ON f.id_filme = df.id_filme
@@ -30,7 +30,7 @@ def list_filmes() -> List[Dict]:
     LEFT JOIN Produtora_Filme pf ON f.id_filme = pf.id_filme
     LEFT JOIN Produtora p ON pf.id_produtora = p.id_produtora
     LEFT JOIN Genero_Filme gf ON f.id_filme = gf.id_filme
-    LEFT JOIN Generos g ON gf.id_genero = g.id_genero
+    LEFT JOIN Genero g ON gf.id_genero = g.id_genero
     GROUP BY f.id_filme
     ORDER BY f.titulo;
     """
@@ -58,7 +58,7 @@ def get_filme_by_id(id_filme: int) -> Optional[Dict]:
         GROUP_CONCAT(DISTINCT CONCAT(d.nome, ' ', d.sobrenome) SEPARATOR ', ') AS diretores,
         GROUP_CONCAT(DISTINCT p.nome SEPARATOR ', ') AS produtoras,
         GROUP_CONCAT(DISTINCT g.nome SEPARATOR ', ') AS generos
-    FROM Filmes f
+    FROM Filme f
     LEFT JOIN Ator_Filme af ON f.id_filme = af.id_filme
     LEFT JOIN Ator a ON af.id_ator = a.id_ator
     LEFT JOIN Diretor_Filme df ON f.id_filme = df.id_filme
@@ -66,7 +66,7 @@ def get_filme_by_id(id_filme: int) -> Optional[Dict]:
     LEFT JOIN Produtora_Filme pf ON f.id_filme = pf.id_filme
     LEFT JOIN Produtora p ON pf.id_produtora = p.id_produtora
     LEFT JOIN Genero_Filme gf ON f.id_filme = gf.id_filme
-    LEFT JOIN Generos g ON gf.id_genero = g.id_genero
+    LEFT JOIN Genero g ON gf.id_genero = g.id_genero
     WHERE f.id_filme = %s
     GROUP BY f.id_filme;
     """
@@ -97,11 +97,11 @@ def _get_or_create_produtora(conn, nome: str) -> int:
 def _get_or_create_genero(conn, nome: str) -> int:
     cur = conn.cursor()
     try:
-        cur.execute("SELECT id_genero FROM Generos WHERE nome = %s", (nome,))
+        cur.execute("SELECT id_genero FROM Genero WHERE nome = %s", (nome,))
         r = cur.fetchone()
         if r:
             return r[0]
-        cur.execute("INSERT INTO Generos (nome) VALUES (%s)", (nome,))
+        cur.execute("INSERT INTO Genero (nome) VALUES (%s)", (nome,))
         conn.commit()
         return cur.lastrowid
     finally:
@@ -180,7 +180,7 @@ def update_filme_basic(id_filme: int, fields: Dict) -> bool:
     cur = conn.cursor()
     try:
         sql = """
-        UPDATE Filmes SET titulo=%s, avaliacao=%s, tempo_duracao=%s, ano=%s, descricao=%s, poster=%s
+        UPDATE Filme SET titulo=%s, avaliacao=%s, tempo_duracao=%s, ano=%s, descricao=%s, poster=%s
         WHERE id_filme = %s
         """
         cur.execute(sql, (

@@ -106,7 +106,6 @@ class APIHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"status": "ok", "data": pend}, ensure_ascii=False).encode("utf-8"))
             return
 
-        # Fallback: serve static files (se quiser servir build do React direto)
         return super().do_GET()
 
     def _read_json_body(self):

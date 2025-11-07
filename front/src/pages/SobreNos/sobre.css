@@ -1,0 +1,11 @@
+.backgroundSobreNos {
+    display: flex;
+    background-image: url(../../assets/images/fundo-sobrenos.svg);
+    background-size: cover;
+    height: 100vh;
+}
+
+.bannerSobreNos {
+    background-image: url(../../assets/images/fundo-banner-sobrenos.svg);
+    background-size: cover;
+}
