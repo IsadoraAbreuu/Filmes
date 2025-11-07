@@ -63,7 +63,7 @@ const Cadastro = () => {
             <form onSubmit={handleSubmit}>
             <label>Usuário:</label>
             <input
-                type="usuario"
+                type="text"
                 value={usuario}
                 onChange={(e) => setUsuario(e.target.value)}
                 required
