@@ -1,7 +1,7 @@
 import React from 'react';
 import './user.css'; 
 
-const User = ({ nome, tipo }) => {
+export default function User({ nome, tipo }) {
     const nomeUsuario = nome || "Usuário Desconhecido";
     const tipoUsuario = tipo || "Visitante";
 
