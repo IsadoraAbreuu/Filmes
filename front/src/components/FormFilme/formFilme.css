@@ -1,0 +1,30 @@
+.conteudoCadastrarFilme {
+    display: flex;
+}
+
+.containerImagem {
+    background-color: rgb(131, 131, 131);
+    height: 50vh;
+    border-radius: 50px;
+
+}
+
+.conteudoCadastrarFilme input, textarea{
+    display: flex;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 20px;
+    font-size: 13px;
+    width: 310px;
+}
+
+.cadastrarFilme h1 {
+    font-size: 32px;
+}
+
+.conteudoCadastrarFilme label {
+    font-size: 15px;
+}
+

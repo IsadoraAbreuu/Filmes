@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./login.css";
+import Logo from '../../assets/images/logo.svg'
 import MockupLogin from '../../assets/images/img-login.svg'
 
 const Login = () => {

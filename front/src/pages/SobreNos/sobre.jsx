@@ -5,6 +5,7 @@ import IconeFiltro from '../../assets/icons/filtro-sobrenos.svg'
 import Footer from '../../components/Footer/footer';
 import Botao from '../../components/Botao/botao'
 import IconeSetaBotao from '../../assets/icons/icone-seta-botao.svg'; 
+import './sobre.css';
 
 const SobreNos = () => {
     return (

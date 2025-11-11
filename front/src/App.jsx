@@ -10,23 +10,30 @@ import EditarFilme from "./pages/EditarFilme/editar";
 import Login from "./pages/Login/login";
 import Cadastro from "./pages/Cadastro/cadastro";
 import "./App.css";
+import Notificacao from "./components/Notificacao/notificacao";
+import User from "./components/User/user";
+import Footer from "./components/Footer/footer";
 
-// 🔹 Layout com Navbar e Sidebar
+// layout com Navbar e Sidebar
 function LayoutPrincipal() {
   return (
     <div className="appLayout">
       <SideBar />
       <div className="conteudo">
         <NavBar />
+        <Notificacao />
+        <User nome="Heloisa" tipo="Comum" />
         <div className="pagina">
           <Outlet /> {/* Onde as páginas serão renderizadas */}
+          <Footer />
         </div>
       </div>
     </div>
+    
   );
 }
 
-// 🔹 Rotas principais
+// as rotas principais
 function App() {
   return (
     <BrowserRouter>
@@ -37,11 +44,12 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/favoritos" element={<Favoritos />} />
-          <Route path="/adicionarFilme" element={<AdicionarFilme />} />
+          <Route path="/adicionar" element={<AdicionarFilme />} />
           <Route path="/sobre" element={<SobreNos />} />
           <Route path="/editarFilme" element={<EditarFilme />} />
         </Route>
 
+        <Route path="/logout" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
       </Routes>

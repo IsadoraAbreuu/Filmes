@@ -1,7 +1,5 @@
 import React from 'react';
 import CarrosselPrincipal from '../../components/CarrosselHome/carrosselHome';
-import SecaoFilmes from '../../components/SecaoFilme/secao'
-import CarrosselFilmes from '../../components/SecaoFilme/secao'
 import BannerHome from '../../assets/images/banner-home.svg';
 import Botao from '../../components/Botao/botao'
 import IconeSeta from '../../assets/icons/icone-seta-botao.svg'

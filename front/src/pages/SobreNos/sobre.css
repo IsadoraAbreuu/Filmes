@@ -1,11 +1,69 @@
 .backgroundSobreNos {
-    display: flex;
-    background-image: url(../../assets/images/fundo-sobrenos.svg);
-    background-size: cover;
-    height: 100vh;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+    place-items: center;
 }
 
 .bannerSobreNos {
-    background-image: url(../../assets/images/fundo-banner-sobrenos.svg);
-    background-size: cover;
+    margin-top: 5rem;
+   
+}
+
+.bannerSobreNos img {
+    margin-top: -25rem;
+    position: relative;
+    z-index: 0;
+}
+
+.bannerSobreNos h1 {
+    background: linear-gradient(90deg, #FFFF, #CCCCCC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 48px;
+    font-weight: 900;
+    position: relative;
+    z-index: 1;
+}
+
+.bannerSobreNos h2 {
+    background: linear-gradient(90deg, #FFFF, #CCCCCC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 40px;
+    font-weight: 900;
+    position: relative;
+    z-index: 1;
+}
+
+.bannerSobreNos p {
+    margin-top: 1rem;
+    justify-content: center;
+    font-size: 27px;
+    font-weight: 400;
+    color: #FFF;
+    position: relative;
+    z-index: 1;
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bannerSobreNos span {
+    background: linear-gradient(90deg, #CC2985, #DD6F6C, #EDB553);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.containerCards {
+    display: flex;
+}
+
+.containerCards div {
+    background-color: #000;
+    width: 300px;
+}
+
+.cardFiltro {
+    border: 4px solid linear-gradient(90deg, #CC2985, #C05660);
 }

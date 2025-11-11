@@ -11,6 +11,8 @@
   display: flex;
   justify-content: center;
   transition: width 0.3s ease;
+  position: relative;
+  z-index: 1;
 }
 
 /* quando a lupa está ativa (hover ou fixa) */

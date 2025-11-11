@@ -1,42 +1,49 @@
-.user-info-container {
+.userInfoContainer {
     display: flex;
     align-items: center;
     color: white;
     padding: 10px;
-    background-color: transparent; 
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
     width: fit-content;
+    border-radius: 50px;
+    padding: 0.2rem 1rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 1.5rem;
+    margin-right: 3rem;
 }
 
-.user-icon-circle {
-    width: 60px;
-    height: 60px;
+.userIcone {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    background: linear-gradient(to right top, #ff9a00, #ff4c3b, #a528d2);
-    border: 3px solid white;
+    background-color: #FFF;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 6px;
+    margin-left: -0.6rem;
 }
 
-.icon-placeholder {
+.iconePerfil {
     font-size: 30px;
 }
 
-.user-details-box {
-    background-color: rgba(80, 80, 80, 0.8);
+.userDetalhes {
     border-radius: 25px;
     padding: 8px 15px;
 }
 
-.user-name {
+.userNome {
     font-size: 1.1em;
     font-weight: 600;
     margin: 0;
     line-height: 1.2; 
 }
 
-.user-type {
+.userTipo {
     font-size: 0.9em;
     font-weight: 400;
     margin: 0;
