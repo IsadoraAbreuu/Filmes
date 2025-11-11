@@ -93,6 +93,19 @@ class APIHandler(SimpleHTTPRequestHandler):
                 self._set_json_response(500)
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
             return
+        
+        # GET /api/produtoras
+        if path == "/api/produtoras":
+            try:
+                # Chama a nova função que lista as produtoras
+                produtoras = filmes_db.list_produtoras() 
+                self._set_json_response(200)
+                # Envia os dados (que agora incluem o logo_url de cada uma)
+                self.wfile.write(json.dumps({"status": "ok", "data": produtoras}, default=str).encode("utf-8"))
+            except Exception as e:
+                self._set_json_response(500)
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
 
         # GET /api/pendentes  (admin)
         if path == "/api/pendentes":

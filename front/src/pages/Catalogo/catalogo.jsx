@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CarrosselFilmes from "../../components/SecaoFilme/secao";
 
 const Catalogo = () => {
-    const [todosFilmes, setClassicos] = useState([]);
+  const [todosFilmes, setClassicos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

@@ -94,6 +94,29 @@ def _get_or_create_produtora(conn, nome: str) -> int:
     finally:
         cur.close()
 
+def list_produtoras() -> List[Dict]:
+    """
+    Retorna a lista de todas as produtoras com seus nomes e URLs de logo.
+    Assume-se que a tabela Produtora tem uma coluna 'logo_url'.
+    """
+    sql = """
+    SELECT 
+        id_produtora, 
+        nome, 
+        foto_produtora 
+    FROM Produtora
+    ORDER BY nome;
+    """
+    conn = get_connection()
+    cur = conn.cursor(dictionary=True)
+    try:
+        cur.execute(sql)
+        rows = cur.fetchall()
+        return rows
+    finally:
+        cur.close()
+        conn.close()
+
 def _get_or_create_genero(conn, nome: str) -> int:
     cur = conn.cursor()
     try:

@@ -2,7 +2,7 @@ import React from "react";
 import CardFilme from "../Card/card";
 import "./secao.css";
 
-export default function SecaoFilmes({ titulo, filmes }) {
+export default function SecaoFilme({ titulo, filmes }) {
   return (
     <section className="secaoDeFilmes">
       <h2>{titulo}</h2>

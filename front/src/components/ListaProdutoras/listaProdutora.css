@@ -1,0 +1,29 @@
+/* Container principal que agrupa todos os cards */
+.listContainer {
+    display: flex;
+    gap: 20px; /* Espaço entre os cards */
+    flex-wrap: wrap; /* Quebra de linha se não houver espaço */
+    padding: 20px;
+    background-color: #000; /* Fundo escuro para o contexto */
+    min-height: 100vh; /* Para garantir que o fundo escuro cubra a tela */
+    align-items: flex-start; /* Alinha os itens no topo */
+    justify-content: center; /* Centraliza horizontalmente */
+}
+
+/* Estilo para a mensagem de carregamento */
+.loadingMessage {
+    color: #ffffff; /* Branco */
+    font-size: 1.5em;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Estilo para a mensagem de erro */
+.errorMessage {
+    color: #ff4d4d; /* Vermelho vibrante para erro */
+    font-size: 1.5em;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}

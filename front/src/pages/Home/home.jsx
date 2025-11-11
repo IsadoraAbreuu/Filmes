@@ -1,15 +1,34 @@
 import React from 'react';
 import CarrosselPrincipal from '../../components/CarrosselHome/carrosselHome';
+import SecaoFilmes from '../../components/SecaoFilme/secao'
+import CarrosselFilmes from '../../components/SecaoFilme/secao'
+import BannerHome from '../../assets/images/banner-home.svg';
+import Botao from '../../components/Botao/botao'
+import IconeSeta from '../../assets/icons/icone-seta-botao.svg'
+import './home.css'
+import FiltroProdutora from '../../components/ListaProdutoras/listaProdutora';
 
 function Home() {
     return (
-        <div className="homePage">
-            <h1>Filmes em Destaque (Renderizados pelo Servidor!)</h1>
-            
+        <>
+        
             <CarrosselPrincipal/>
 
-            {/* O restante do conteúdo da página */}
-        </div>
+            <div className='containerRecomendacoes'>
+                <img src={BannerHome} alt='Banner sobre recomendações de filmes'/>
+                <Botao
+                    link="/favoritos" 
+                    texto="Confira seus favoritos" 
+                    iconeSrc={IconeSeta} 
+                />
+            </div>
+
+            <FiltroProdutora />
+
+
+        </>
+
+        
     );
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react'; // Ícones para navegação
-import CardCarrossel from '../CardCarrossel/CardCarrossel'; // O card individual
+import CardCarrossel from '../CardCarrossel/cardCarrossel'; 
 import './carrosselHome.css';
 import DiarioPaixao from '../../assets/images/diario-paixao.svg'
 import JogosVorazes from '../../assets/images/jogos-vorazes.svg'

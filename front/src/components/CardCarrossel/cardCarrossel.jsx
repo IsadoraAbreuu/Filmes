@@ -1,6 +1,7 @@
 import React from 'react';
 import { Play } from 'lucide-react';
-import './CardCarrossel.css';
+import './cardCarrossel.css';
+
 function CardCarrossel({ filme, className, onCardClick }) {
     const { titulo, descricao, capaFundo } = filme;
  

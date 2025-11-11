@@ -1,0 +1,48 @@
+/* Estilo para o container principal (botão) */
+.cardContainer {
+    /* Aparência base do card */
+    padding: 12px 25px;
+    border-radius: 12px;
+    
+    /* Cores (simulando a imagem) */
+    background-color: #4a4a4a;
+    color: #ffffff; /* Cor do texto e ícone */
+    
+    /* Layout para alinhar ícone e texto */
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre o ícone e o texto */
+    
+    /* Configurações de fonte */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    
+    /* Remove a borda padrão do botão */
+    border: none;
+    cursor: pointer; /* Indica que é clicável */
+
+    /* Efeito de sombra sutil para profundidade */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
+    /* Efeito de hover (opcional, mas recomendado para botões) */
+    transition: background-color 0.2s ease;
+}
+
+.cardContainer:hover {
+    background-color: #5c5c5c; /* Escurece um pouco ao passar o mouse */
+}
+
+/* Estilo para o ícone */
+.icon {
+    /* Define o tamanho do ícone */
+    font-size: 1.4em;
+    /* Garante que o ícone e o texto estejam na mesma linha base (opcional) */
+    line-height: 1; 
+}
+
+/* Estilo para o texto */
+.text {
+    /* Ajustes finos no texto, se necessário */
+    line-height: 1; 
+}
