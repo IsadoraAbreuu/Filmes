@@ -1,24 +1,69 @@
-/* Remova ou modifique o bloco .carrosselFilmes existente */
-.listaFilmes {
-    /* Define o layout de grade */
-    display: grid; 
-    
-    /* Define 4 colunas de tamanho igual (fracionário) */
-    grid-template-columns: repeat(4, 1fr); 
-    
-    /* Espaçamento entre os cards, como você já tinha no 'gap' */
-    gap: 1rem; 
-    
-    /* Opcional: Adiciona margem vertical para separar do título */
-    margin-top: 1rem;
-    
-    /* Remove a rolagem lateral que era do carrossel */
-    overflow-x: visible; 
-}
-
-/* Opcional: Se quiser que o carrossel ocupe a largura máxima e fique centralizado */
 .secaoDeFilmes {
-    width: 80%; /* Ajuste a largura conforme o seu layout */
-    margin: 2rem auto; /* Centraliza a seção */
+    width: 80%; 
+    margin: auto;
+    margin-bottom: 5rem;
+    margin-top: 6rem;
 }
 
+.cabecalhoSecao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinha verticalmente o título e as setas */
+    margin-bottom: 1rem; /* Espaço entre o cabeçalho e a lista de filmes */
+}
+
+/* Container das Setas (Fica à direita) */
+.navegacaoSetas {
+    display: flex;
+    gap: 10px; /* Espaço entre as duas setas */
+    align-items: center;
+}
+
+/* ➡️ Estilo Base das Setas (Branco/Cor clara) */
+.botaoSeta {
+    /* Removido: position: absolute; e top/transform, pois agora está em display: flex */
+    z-index: 10;
+    
+    background-color: rgba(255, 255, 255, 0.4); /* Fundo branco semi-transparente */
+    color: #000; /* Cor escura para a seta */
+    
+    /* Propriedades do botão */
+    border: none;
+    border-radius: 50%;
+    width: 30px; 
+    height: 30px; 
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    display: grid;
+    place-items: center;
+    transition: all 0.2s ease;
+}
+
+.botaoSeta:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Efeito Gradiente ao CLICAR (estado :active) */
+.botaoSeta:active {
+    /* Gradiente de exemplo, ajuste as cores conforme seu tema (rosa e laranja da imagem) */
+    background: linear-gradient(135deg, #f96d6d 0%, #ffc74f 100%); 
+    color: #FFF; /* Mude a cor do ícone para branco */
+    transform: scale(0.95); /* Animação de "apertar" */
+}
+
+.listaFilmes {
+    display: flex; 
+    overflow-x: auto; 
+    flex-wrap: nowrap; 
+    gap: 1rem; 
+    margin-top: 0; /* Ajustado para não ter margem duplicada */
+    scroll-snap-type: x mandatory; 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+    padding-bottom: 10px; 
+}
+
+.listaFilmes::-webkit-scrollbar {
+    display: none;
+}

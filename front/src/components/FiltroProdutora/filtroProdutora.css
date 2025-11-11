@@ -1,38 +1,12 @@
-/* Estilo para o container principal (botão) */
 .cardContainer {
-    /* Aparência base do card */
-    padding: 15px 30px; /* Ajuste o padding conforme necessário */
-    border-radius: 12px;
-    
-    /* Cores (simulando a imagem) */
-    background-color: #4a4a4a; /* Fundo cinza escuro */
-    
-    /* Centraliza a imagem */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    /* Remove a borda padrão do botão */
     border: none;
-    cursor: pointer; /* Indica que é clicável */
-
-    /* Sombra e transição */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: background-color 0.2s ease, transform 0.2s ease; /* Adiciona transição para o transform */
-}
-
-.cardContainer:hover {
-    background-color: #5c5c5c; /* Escurece um pouco ao passar o mouse */
-    transform: translateY(-2px); /* Efeito sutil de levantar */
-}
-
-/* Estilo para a imagem dentro do card */
-.cardImage {
-    /* Tamanho da imagem - ajuste conforme o tamanho desejado para o logo */
-    max-width: 150px; /* Exemplo: define uma largura máxima */
-    height: auto; /* Mantém a proporção da imagem */
-    display: block; /* Remove espaços extras abaixo da imagem */
-    
-    /* Opcional: filtro para ajustar a cor da imagem se ela for colorida e você quiser um tom cinza */
-    /* filter: grayscale(100%) brightness(1.5); */ 
-}
+    background: none;
+    cursor: pointer;
+  }
+  
+  .cardImage {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  

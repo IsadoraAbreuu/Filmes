@@ -117,6 +117,133 @@ def list_produtoras() -> List[Dict]:
         cur.close()
         conn.close()
 
+def list_filmes_classicos() -> List[Dict]:
+    """
+    Retorna apenas os filmes cuja classificação é 'Clássicos do cinema'.
+    """
+    sql = """
+    SELECT
+        f.id_filme,
+        f.titulo,
+        f.avaliacao,
+        f.tempo_duracao,
+        f.ano,
+        f.descricao,
+        f.poster,
+        c.nome AS classificacao,
+        GROUP_CONCAT(DISTINCT CONCAT(a.nome, ' ', a.sobrenome) SEPARATOR ', ') AS atores,
+        GROUP_CONCAT(DISTINCT CONCAT(d.nome, ' ', d.sobrenome) SEPARATOR ', ') AS diretores,
+        GROUP_CONCAT(DISTINCT p.nome SEPARATOR ', ') AS produtoras,
+        GROUP_CONCAT(DISTINCT g.nome SEPARATOR ', ') AS generos
+    FROM Filme f
+    LEFT JOIN Classificacao c ON f.id_classificacao = c.id_classificacao
+    LEFT JOIN Ator_Filme af ON f.id_filme = af.id_filme
+    LEFT JOIN Ator a ON af.id_ator = a.id_ator
+    LEFT JOIN Diretor_Filme df ON f.id_filme = df.id_filme
+    LEFT JOIN Diretor d ON df.id_diretor = d.id_diretor
+    LEFT JOIN Produtora_Filme pf ON f.id_filme = pf.id_filme
+    LEFT JOIN Produtora p ON pf.id_produtora = p.id_produtora
+    LEFT JOIN Genero_Filme gf ON f.id_filme = gf.id_filme
+    LEFT JOIN Genero g ON gf.id_genero = g.id_genero
+    WHERE c.nome = 'Clássicos do cinema'
+    GROUP BY f.id_filme
+    ORDER BY f.titulo;
+    """
+    conn = get_connection()
+    cur = conn.cursor(dictionary=True)
+    try:
+        cur.execute(sql)
+        rows = cur.fetchall()
+        return rows
+    finally:
+        cur.close()
+        conn.close()
+
+def list_filmes_em_alta() -> List[Dict]:
+    """
+    Retorna apenas os filmes com id_classificacao = 2 (Em alta).
+    """
+    sql = """
+    SELECT
+        f.id_filme,
+        f.titulo,
+        f.avaliacao,
+        f.tempo_duracao,
+        f.ano,
+        f.descricao,
+        f.poster,
+        c.nome AS classificacao,
+        GROUP_CONCAT(DISTINCT CONCAT(a.nome, ' ', a.sobrenome) SEPARATOR ', ') AS atores,
+        GROUP_CONCAT(DISTINCT CONCAT(d.nome, ' ', d.sobrenome) SEPARATOR ', ') AS diretores,
+        GROUP_CONCAT(DISTINCT p.nome SEPARATOR ', ') AS produtoras,
+        GROUP_CONCAT(DISTINCT g.nome SEPARATOR ', ') AS generos
+    FROM Filme f
+    LEFT JOIN Classificacao c ON f.id_classificacao = c.id_classificacao
+    LEFT JOIN Ator_Filme af ON f.id_filme = af.id_filme
+    LEFT JOIN Ator a ON af.id_ator = a.id_ator
+    LEFT JOIN Diretor_Filme df ON f.id_filme = df.id_filme
+    LEFT JOIN Diretor d ON df.id_diretor = d.id_diretor
+    LEFT JOIN Produtora_Filme pf ON f.id_filme = pf.id_filme
+    LEFT JOIN Produtora p ON pf.id_produtora = p.id_produtora
+    LEFT JOIN Genero_Filme gf ON f.id_filme = gf.id_filme
+    LEFT JOIN Genero g ON gf.id_genero = g.id_genero
+    WHERE f.id_classificacao = 2
+    GROUP BY f.id_filme
+    ORDER BY f.titulo;
+    """
+    conn = get_connection()
+    cur = conn.cursor(dictionary=True)
+    try:
+        cur.execute(sql)
+        rows = cur.fetchall()
+        return rows
+    finally:
+        cur.close()
+        conn.close()
+
+def list_filmes_por_classificacao(id_classificacao: int):
+    """
+    Retorna filmes de acordo com o id_classificacao informado.
+    Exemplo: 1 = Clássicos, 2 = Em alta, 3 = Top 10.
+    """
+    sql = """
+    SELECT
+        f.id_filme,
+        f.titulo,
+        f.avaliacao,
+        f.tempo_duracao,
+        f.ano,
+        f.descricao,
+        f.poster,
+        GROUP_CONCAT(DISTINCT CONCAT(a.nome, ' ', a.sobrenome) SEPARATOR ', ') AS atores,
+        GROUP_CONCAT(DISTINCT CONCAT(d.nome, ' ', d.sobrenome) SEPARATOR ', ') AS diretores,
+        GROUP_CONCAT(DISTINCT p.nome SEPARATOR ', ') AS produtoras,
+        GROUP_CONCAT(DISTINCT g.nome SEPARATOR ', ') AS generos
+    FROM Filme f
+    LEFT JOIN Ator_Filme af ON f.id_filme = af.id_filme
+    LEFT JOIN Ator a ON af.id_ator = a.id_ator
+    LEFT JOIN Diretor_Filme df ON f.id_filme = df.id_filme
+    LEFT JOIN Diretor d ON df.id_diretor = d.id_diretor
+    LEFT JOIN Produtora_Filme pf ON f.id_filme = pf.id_filme
+    LEFT JOIN Produtora p ON pf.id_produtora = p.id_produtora
+    LEFT JOIN Genero_Filme gf ON f.id_filme = gf.id_filme
+    LEFT JOIN Genero g ON gf.id_genero = g.id_genero
+    WHERE f.id_classificacao = %s
+    GROUP BY f.id_filme
+    ORDER BY f.avaliacao DESC
+    LIMIT 10;
+    """
+    conn = get_connection()
+    cur = conn.cursor(dictionary=True)
+    try:
+        cur.execute(sql, (id_classificacao,))
+        rows = cur.fetchall()
+        return rows
+    finally:
+        cur.close()
+        conn.close()
+
+
 def _get_or_create_genero(conn, nome: str) -> int:
     cur = conn.cursor()
     try:

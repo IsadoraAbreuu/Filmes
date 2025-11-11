@@ -12,6 +12,7 @@ import Cadastro from "./pages/Cadastro/cadastro";
 import "./App.css";
 import Notificacao from "./components/Notificacao/notificacao";
 import User from "./components/User/user";
+import Descricao from './pages/Descricao/descricao'
 import Footer from "./components/Footer/footer";
 
 // layout com Navbar e Sidebar
@@ -47,6 +48,7 @@ function App() {
           <Route path="/adicionar" element={<AdicionarFilme />} />
           <Route path="/sobre" element={<SobreNos />} />
           <Route path="/editarFilme" element={<EditarFilme />} />
+          <Route path="/descricao" element={<Descricao />} />
         </Route>
 
         <Route path="/logout" element={<Login />} />

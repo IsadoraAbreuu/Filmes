@@ -94,6 +94,42 @@ class APIHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
             return
         
+        # GET /api/filmes_classicos
+        if path == "/api/filmes_classicos":
+            try:
+                filmes = filmes_db.list_filmes_classicos()
+                self._set_json_response(200)
+                self.wfile.write(json.dumps({"status": "ok", "data": filmes}, default=str).encode("utf-8"))
+            except Exception as e:
+                self._set_json_response(500)
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+        
+        # GET /api/filmes_em_alta
+        if path == "/api/filmes_em_alta":
+            try:
+                filmes = filmes_db.list_filmes_em_alta()
+                self._set_json_response(200)
+                self.wfile.write(json.dumps({"status": "ok", "data": filmes}, default=str).encode("utf-8"))
+            except Exception as e:
+                self._set_json_response(500)
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+        
+        # GET /api/filmes_top10
+        if path == "/api/filmes_top10": 
+            try:
+                filmes = filmes_db.list_filmes_por_classificacao(3)
+                self._set_json_response(200)
+                self.wfile.write(json.dumps({"status": "ok", "data": filmes}, default=str).encode("utf-8"))
+            except Exception as e:
+                self._set_json_response(500)
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
+
+
+        
         # GET /api/produtoras
         if path == "/api/produtoras":
             try:

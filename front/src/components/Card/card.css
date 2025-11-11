@@ -6,7 +6,10 @@
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
+  flex-shrink: 0; 
+  scroll-snap-align: start; 
 }
+
 
 .cardFilme:hover {
   transform: scale(1.03);

@@ -2,11 +2,8 @@ import React from 'react';
 import './user.css'; 
 import IconePerfil from '../../assets/icons/foto-perfil.svg';
 
-<<<<<<< HEAD
 export default function User({ nome, tipo }) {
-=======
-export default function User({ nome, tipo })  {
->>>>>>> 5e14ce5 (fazendo uhu)
+
     const nomeUsuario = nome || "Usuário Desconhecido";
     const tipoUsuario = tipo || "Visitante";
 

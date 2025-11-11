@@ -1,0 +1,20 @@
+.secaoListaFilmes {
+    padding: 20px 5vw; /* Ajuste o padding conforme o seu layout */
+    margin-bottom: 40px;
+}
+
+/* Título da seção */
+.secaoListaFilmes .tituloSecao {
+    color: white; /* Cor do texto */
+    font-size: 2.5rem;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* O container principal que define o layout de GRADE */
+.filmesGridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 30px; /* Espaço entre os cards */
+    justify-items: center; /* Centraliza os cards na célula do grid */
+}
