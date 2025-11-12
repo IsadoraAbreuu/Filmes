@@ -5,6 +5,7 @@ import IconeFiltro from '../../assets/icons/filtro-sobrenos.svg'
 import Botao from '../../components/Botao/botao'
 import IconeSeta from '../../assets/icons/icone-seta-botao.svg'; 
 import CarrosselSobre from '../../components/CarrosselSobre/carrosselSobre';
+import Contato from '../../components/Contato/contato';
 import './sobre.css';
 
 const SobreNos = () => {
@@ -59,6 +60,9 @@ const SobreNos = () => {
                         iconeSrc={IconeSeta}
                         />
                     </div>
+                </div>
+                <div className='contatoContainer'>
+                    <Contato />
                 </div>
             </div>
         </main>

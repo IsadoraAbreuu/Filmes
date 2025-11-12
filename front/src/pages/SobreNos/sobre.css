@@ -76,15 +76,19 @@
   justify-content: center;
   padding: 2rem;
   margin-bottom: 14rem;
+  transition: transform 0.3s ease;
 }
 
+.containerCards div:hover {
+  transform: scale(1.1);
+}
 
 .cardFiltro {
   background: linear-gradient(to bottom, #CC2985, #C05660); 
   padding: 4px; 
   box-shadow: 0 0 25px 5px rgba(204, 41, 133, 0.5);
   margin-top: 3rem;
-    align-items: start;
+  align-items: start;
   text-align: start;
 }
 
@@ -148,8 +152,8 @@
   background: linear-gradient(to bottom, #EDB553, #B4843B);
   padding: 4px;
   box-shadow: 0 0 25px 5px rgba(237, 181, 83, 0.5);
-    margin-top: 3rem;
-    align-items: end;
+  margin-top: 3rem;
+  align-items: end;
   text-align: end;
 }
 

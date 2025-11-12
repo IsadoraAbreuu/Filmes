@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ListaFilmesGrid from "../../components/ListaFilmes/listaFilmes";
+import SecaoFiltroGenero from "../../components/SecaoFiltroGenero/secaoFiltroGenero";
 
 const Catalogo = () => {
   const [todosFilmes, setTodosFilmes] = useState([]); // Renomeado para clareza
@@ -28,12 +29,15 @@ const Catalogo = () => {
   }
 
   return (
-    <main>
-      <div>
-        {/* Usa o novo componente de grade para listar todos */}
-        <ListaFilmesGrid titulo="Todos os filmes" filmes={todosFilmes} />
-      </div>
-    </main>
+  <>
+    <div className="filtros">
+      <SecaoFiltroGenero/>
+    </div>
+    <div>
+      <ListaFilmesGrid titulo="Todos os filmes" filmes={todosFilmes} />
+    </div>
+  </>
+      
   );
 }
 

@@ -1,22 +1,48 @@
-import React from 'react';
-import styles from './filtroGenero.css'; 
-import { FaRegCheckSquare } from 'react-icons/fa'; 
+import React, { useState } from 'react';
+import './filtroGenero.css'; 
 
-const FiltroGenero = ({ Icon, text, onClick }) => {
-  // Define um ícone padrão caso a prop 'Icon' não seja passada
-  const DefaultIcon = Icon || FaRegCheckSquare; 
 
-  return (
-    // Usa o botão para manter a semântica de um elemento clicável
-    <button className={styles.cardContainer} onClick={onClick}>
-      
-      {/* O ícone será renderizado aqui */}
-      <DefaultIcon className={styles.icon} />
-      
-      {/* O texto será renderizado aqui */}
-      <span className={styles.text}>{text}</span>
-    </button>
-  );
+
+const FilterCard = ({ label, icone }) => {
+    const [isSelected, setIsSelected] = useState(false);
+
+    const handleCardClick = (e) => {
+        if (e.target.closest('.deselect-btn')) {
+             return; 
+        }
+        setIsSelected(prev => !prev);
+    };
+
+
+    const handleDeselectClick = (e) => {
+        e.stopPropagation(); 
+        setIsSelected(false);
+    };
+
+    const cardClasses = `filtroGenero ${isSelected ? 'selected' : ''}`;
+
+    return (
+        <div 
+            className={cardClasses}
+            onClick={handleCardClick}
+        >
+            <span className="iconeFiltroGenero">
+                <img src={icone} alt='Ícone do filtro' />
+            </span>
+            <span className="textoFiltroGenero">{label}</span>
+            
+            {isSelected && (
+                 <button 
+                    className="deselectBotao"
+                    onClick={handleDeselectClick}
+                    aria-label="Deselecionar"
+                >
+                    &times;
+                </button>
+            )}
+        </div>
+    );
 };
 
-export default FiltroGenero;
+
+export default FilterCard;
