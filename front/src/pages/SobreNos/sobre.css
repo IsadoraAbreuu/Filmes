@@ -1,69 +1,199 @@
 .backgroundSobreNos {
-    margin: auto;
-    text-align: center;
-    align-items: center;
-    place-items: center;
+  margin: auto;
+  text-align: center;
+  align-items: center;
+  place-items: center;
 }
 
 .bannerSobreNos {
-    margin-top: 5rem;
-   
+  margin-top: 5rem;
 }
 
 .bannerSobreNos img {
-    margin-top: -25rem;
-    position: relative;
-    z-index: 0;
+  margin-top: -25rem;
+  position: relative;
+  z-index: 0;
 }
 
 .bannerSobreNos h1 {
-    background: linear-gradient(90deg, #FFFF, #CCCCCC);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 48px;
-    font-weight: 900;
-    position: relative;
-    z-index: 1;
+  background: linear-gradient(90deg, #FFFF, #CCCCCC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 48px;
+  font-weight: 900;
+  position: relative;
+  z-index: 1;
 }
 
 .bannerSobreNos h2 {
-    background: linear-gradient(90deg, #FFFF, #CCCCCC);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 40px;
-    font-weight: 900;
-    position: relative;
-    z-index: 1;
+  background: linear-gradient(90deg, #FFFF, #CCCCCC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px;
+  font-weight: 900;
+  position: relative;
+  z-index: 1;
 }
 
 .bannerSobreNos p {
-    margin-top: 1rem;
-    justify-content: center;
-    font-size: 27px;
-    font-weight: 400;
-    color: #FFF;
-    position: relative;
-    z-index: 1;
-    max-width: 950px;
-    margin-left: auto;
-    margin-right: auto;
+  margin-top: 1rem;
+  justify-content: center;
+  font-size: 27px;
+  font-weight: 400;
+  color: #FFF;
+  position: relative;
+  z-index: 1;
+  max-width: 950px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .bannerSobreNos span {
-    background: linear-gradient(90deg, #CC2985, #DD6F6C, #EDB553);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #CC2985, #DD6F6C, #EDB553);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.funcionalidadesSobreNos h2 {
+  margin-bottom: 2.5rem;
+  font-size: 36px;
 }
 
 .containerCards {
-    display: flex;
+  display: flex;
 }
 
 .containerCards div {
-    background-color: #000;
-    width: 300px;
+  position: relative;
+  width: 268px;
+  height: 260px;
+  margin-left: 3rem;
+  border-radius: 29px;
+  overflow: hidden; 
+  color: #FFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  margin-bottom: 14rem;
 }
 
+
 .cardFiltro {
-    border: 4px solid linear-gradient(90deg, #CC2985, #C05660);
+  background: linear-gradient(to bottom, #CC2985, #C05660); 
+  padding: 4px; 
+  box-shadow: 0 0 25px 5px rgba(204, 41, 133, 0.5);
+  margin-top: 3rem;
+    align-items: start;
+  text-align: start;
+}
+
+.cardFiltro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000; 
+  border-radius: inherit;
+  margin: 4px;
+  z-index: 0;
+}
+
+.cardFiltro * {
+  position: relative;
+  z-index: 1;
+}
+
+.cardFiltro h5 {
+  font-size: 23px;
+  margin-top: 2.8rem;
+}
+
+.cardFiltro p {
+  font-size: 16px;
+}
+
+.cardLampada {
+  background: linear-gradient(to bottom, #DF6256, #CA7349);
+  padding: 4px;
+  box-shadow: 0 0 25px 5px rgba(223, 98, 86, 0.5);
+  align-items: center;
+  text-align: center;
+}
+
+.cardLampada::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  border-radius: inherit;
+  margin: 4px;
+  z-index: 0;
+}
+
+.cardLampada * {
+  position: relative;
+  z-index: 1;
+}
+
+.cardLampada h5 {
+  margin-top: 2.4rem;
+  font-size: 23px;
+}
+
+.cardLampada p {
+  font-size: 16px;
+}
+
+.cardEngrenagem {
+  background: linear-gradient(to bottom, #EDB553, #B4843B);
+  padding: 4px;
+  box-shadow: 0 0 25px 5px rgba(237, 181, 83, 0.5);
+    margin-top: 3rem;
+    align-items: end;
+  text-align: end;
+}
+
+.cardEngrenagem::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  border-radius: inherit;
+  margin: 4px;
+  z-index: 0;
+}
+
+.cardEngrenagem * {
+  position: relative;
+  z-index: 1;
+}
+
+.cardEngrenagem h5 {
+  font-size: 23px;
+  margin-top: 2.8rem;
+}
+
+.cardEngrenagem p {
+  font-size: 16px;
+}
+
+.carrosselHover {
+    display: flex;
+    place-items: center;
+}
+
+.carrosselEscrito {
+    text-align: start;
+    padding-left: 5rem;
+}
+
+.carrosselEscrito h2 {
+    font-size: 36px;
+    margin-bottom: 1rem;
+}
+
+.carrosselEscrito p {
+    max-width: 480px;
+    font-size: 24px;
+    margin-bottom: 3rem;
 }

@@ -1,4 +1,3 @@
-/* --- Container Principal do Botão (Link) --- */
 .botaoDestaque {
     display: inline-flex;
     align-items: center;
@@ -16,11 +15,13 @@
     box-shadow: 0 7px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* --- Área do Ícone --- */
 .botaoDestaqueIcone {
     width: 50px;
     height: 50px;
     margin-right: 15px;
+    margin-top: 0.2rem;
+    margin-left: 0.2rem;
+    margin-bottom: 0.2rem;
     border-radius: 50%;
     background: linear-gradient(135deg, #FFF 0%, #F0F0F0 100%);
     display: flex;
@@ -28,9 +29,7 @@
     align-items: center;
 }
 
-/* --- Texto --- */
 .botaoDestaqueTexto {
-    /* Cor do texto branco/claro */
     color: white; 
     font-size: 1.1rem;
     font-weight: 600;

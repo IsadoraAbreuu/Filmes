@@ -1,12 +1,26 @@
 .conteudoCadastrarFilme {
     display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+}
+
+.imagemCadastrarFilme {
+    margin-right: 4rem;
+    margin-bottom: 7rem;
+}
+
+.imagemCadastrarFilme div {
+    margin-bottom: 2.5rem;
 }
 
 .containerImagem {
     background-color: rgb(131, 131, 131);
-    height: 50vh;
+    height: 55vh;
     border-radius: 50px;
+}
 
+.avaliacaoEduracao {
+    display: flex;
 }
 
 .conteudoCadastrarFilme input, textarea{
@@ -17,14 +31,34 @@
     font-family: 'Montserrat', sans-serif;
     border-radius: 20px;
     font-size: 13px;
-    width: 310px;
+    width: 531px;
+    margin-top: 0.4rem;
+    margin-bottom: 1.2rem;
 }
+
+.conteudoCadastrarFilme textarea {
+    height: 101px;
+}
+
 
 .cadastrarFilme h1 {
     font-size: 32px;
+    margin-bottom: 1.5rem;
 }
 
 .conteudoCadastrarFilme label {
     font-size: 15px;
 }
 
+.avaliacaoEduracao input {
+  width: 236px; 
+}
+
+.avaliacao {
+  margin-right: 3.7rem;
+}
+
+.botaoCadastrar {
+    margin-top: 2rem;
+    text-align: center;
+}

@@ -20,8 +20,8 @@ export default function Footer() {
         { path: '/', label: 'Home' },
         { path: '/catalogo', label: 'Catálogo' },
         { path: '/favoritos', label: 'Favoritos' },
-        { path: '/adicionarFilme', label: 'Adicionar Filme' },
-        { path: '/sobreNos', label: 'Sobre' },
+        { path: '/adicionar', label: 'Adicionar Filme' },
+        { path: '/sobre', label: 'Sobre' },
     ];
 
     const socialLinks = [

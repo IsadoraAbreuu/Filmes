@@ -2,12 +2,19 @@ import Claquete from '../../assets/images/claquete-sobrenos.svg';
 import IconeEngrenagem from '../../assets/icons/engrenagem-sobrenos.svg';
 import IconeLampada from '../../assets/icons/lampada-sobrenos.svg';
 import IconeFiltro from '../../assets/icons/filtro-sobrenos.svg'
-import Footer from '../../components/Footer/footer';
 import Botao from '../../components/Botao/botao'
-import IconeSetaBotao from '../../assets/icons/icone-seta-botao.svg'; 
+import IconeSeta from '../../assets/icons/icone-seta-botao.svg'; 
+import CarrosselSobre from '../../components/CarrosselSobre/carrosselSobre';
 import './sobre.css';
 
 const SobreNos = () => {
+    const imagens = [
+    'https://preview.redd.it/what-do-you-want-to-see-most-in-avengers-doomsday-v0-flc2pue4pdqf1.jpeg?width=1080&crop=smart&auto=webp&s=4dfe261378adab2a05cd8ed2d87a6939faa8a2f6',
+    "https://upload.wikimedia.org/wikipedia/pt/b/b3/Inside_Out_2.png",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi9RGZRW3XFMgb88VawkDAsWKOKxSTuGZFJVakH4YQuEd7YTeH6tJDjKfPML7Xkvr4FLM&usqp=CAU",
+    "https://br.web.img2.acsta.net/pictures/210/022/21002261_20130429232702952.jpg",
+    ];
+
     return (
         <>
         <main>
@@ -38,6 +45,19 @@ const SobreNos = () => {
                             <h5>Gerenciamento de filmes</h5>
                             <p>edição de filmes e adição de novos </p>
                         </div>
+                    </div>
+                </div>
+
+                <div className='carrosselHover'>
+                    <CarrosselSobre imagens={imagens} />
+                    <div className='carrosselEscrito'>
+                        <h2>Pronto para explorar <br />os filmes?</h2>
+                        <p>Descubra um universo de filmes incríveis! Se quer fazer parte dessa experiência, venha explorar o site agora!</p>
+                        <Botao
+                        link="/catalogo"
+                        texto="Clique aqui para conhecer"
+                        iconeSrc={IconeSeta}
+                        />
                     </div>
                 </div>
             </div>

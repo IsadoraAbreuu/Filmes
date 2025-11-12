@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./formFilme.css";
+import Botao from '../../components/Botao/botao'
+import IconeAdicionar from '../../assets/icons/add-botao.svg'
 
 const FormFilme = ({ modo = "add", filmeInicial = {}, onSubmit }) => {
   // estados do formulário
@@ -139,22 +141,26 @@ const FormFilme = ({ modo = "add", filmeInicial = {}, onSubmit }) => {
             />
 
             <div className="avaliacaoEduracao">
-              <label>Avaliação (0 a 5):</label>
-              <input
-                type="number"
-                value={avaliacao}
-                onChange={(e) => setAvaliacao(e.target.value)}
-                required
-                placeholder="Ex: 4.6"
-              />
-              <label>Duração (em min):</label>
-              <input
-                type="number"
-                value={duracao}
-                onChange={(e) => setDuracao(e.target.value)}
-                required
-                placeholder="Ex: 139"
-              />
+              <div className="avaliacao">
+                <label>Avaliação (0 a 5):</label>
+                <input
+                  type="number"
+                  value={avaliacao}
+                  onChange={(e) => setAvaliacao(e.target.value)}
+                  required
+                  placeholder="Ex: 4.6"
+                />
+              </div>
+              <div className="duracao">
+                <label>Duração (em min):</label>
+                <input
+                  type="number"
+                  value={duracao}
+                  onChange={(e) => setDuracao(e.target.value)}
+                  required
+                  placeholder="Ex: 139"
+                />
+              </div>
             </div>
 
             <label>Ano de publicação:</label>
@@ -222,9 +228,13 @@ const FormFilme = ({ modo = "add", filmeInicial = {}, onSubmit }) => {
                 </option>
               ))}
             </select>
-
-            <button type="submit">{modo === "edit" ? "Salvar alterações" : "Cadastrar"}</button>
-
+            <div className="botaoCadastrar">
+              <Botao
+                link="/catalogo"
+                texto="Enviar novo filme"
+                iconeSrc={IconeAdicionar}
+              />
+            </div>
             {error && <p style={{ color: "red" }}>{error}</p>}
             {success && <p style={{ color: "green" }}>{success}</p>}
           </form>
