@@ -1,13 +1,13 @@
 import React from 'react';
 import './filtroGenero.css'; 
 
+
+
 // Adicione as props: isSelected, onSelect, e onDeselect
 const FiltroGenero = ({ label, icone, isSelected, onSelect, onDeselect }) => {
     
     // Altera o comportamento de clique para chamar a função do componente pai
     const handleCardClick = () => {
-        // Se já está selecionado, o clique deve chamar a deseleção (ou o toggle)
-        // Aqui, simplificamos chamando onSelect para que o pai decida o que fazer
         if (isSelected) {
             onDeselect(label);
         } else {

@@ -5,13 +5,12 @@ from typing import List, Dict, Optional
 from .connection import get_connection
 from mysql.connector import Error
 
-def list_filmes(filtros_generos: List[str] = None) -> List[Dict]:
+def list_filmes(filtros_generos=None) -> List[Dict]:
     """
-    Retorna lista de filmes, opcionalmente filtrados por nomes de gênero.
+    Lista filmes, opcionalmente filtrando por um ou mais gêneros.
+    Exemplo: filtros_generos=["Terror", "Ação"]
     """
-    
-    # Base da query SQL
-    sql = """
+    base_sql = """
     SELECT
         f.id_filme,
         f.titulo,
@@ -20,13 +19,13 @@ def list_filmes(filtros_generos: List[str] = None) -> List[Dict]:
         f.ano,
         f.descricao,
         f.poster,
+        c.nome AS classificacao,
         GROUP_CONCAT(DISTINCT CONCAT(a.nome, ' ', a.sobrenome) SEPARATOR ', ') AS atores,
         GROUP_CONCAT(DISTINCT CONCAT(d.nome, ' ', d.sobrenome) SEPARATOR ', ') AS diretores,
         GROUP_CONCAT(DISTINCT p.nome SEPARATOR ', ') AS produtoras,
-        -- Adicione o campo `generos_filtro` para ajudar na filtragem
-        GROUP_CONCAT(DISTINCT g.nome SEPARATOR '|') AS generos_filtro, 
-        GROUP_CONCAT(DISTINCT g.nome SEPARATOR ', ') AS generos_exibicao
+        GROUP_CONCAT(DISTINCT g.nome SEPARATOR ', ') AS generos
     FROM Filme f
+    LEFT JOIN Classificacao c ON f.id_classificacao = c.id_classificacao
     LEFT JOIN Ator_Filme af ON f.id_filme = af.id_filme
     LEFT JOIN Ator a ON af.id_ator = a.id_ator
     LEFT JOIN Diretor_Filme df ON f.id_filme = df.id_filme
@@ -35,62 +34,29 @@ def list_filmes(filtros_generos: List[str] = None) -> List[Dict]:
     LEFT JOIN Produtora p ON pf.id_produtora = p.id_produtora
     LEFT JOIN Genero_Filme gf ON f.id_filme = gf.id_filme
     LEFT JOIN Genero g ON gf.id_genero = g.id_genero
-    GROUP BY f.id_filme
     """
     
     params = []
-    
-    # Lógica de Filtragem (usando HAVING e um COUNT)
-    if filtros_generos and len(filtros_generos) > 0:
-        # A forma mais robusta de filtrar por múltiplos gêneros em um GROUP BY 
-        # é contar quantos dos gêneros na lista do filtro estão no filme.
-        
-        # Constrói a sub-query de COUNT dentro do HAVING
-        # CONCAT(g.nome, '|') garante que a busca por 'Ação' não pegue 'Ação e Comédia'
-        # WHERE g.nome IN ({}) constrói uma lista de placeholders (?)
-        
-        # Precisamos de uma query JOIN adicional para a contagem
-        sql += """
-        HAVING 
-            SUM(CASE WHEN generos_exibicao IN ({}) THEN 1 ELSE 0 END) = {}
-        """.format(
-            # Cria a string de placeholders: '?, ?, ?'
-            ','.join(['?'] * len(filtros_generos)),
-            # O número de gêneros que devem ser encontrados
-            len(filtros_generos) 
-        )
-        
-        # Os parâmetros são os nomes dos gêneros
-        params.extend(filtros_generos)
+    where_clause = ""
 
-        # Alternativamente, a forma mais simples (mas menos precisa se for OR) seria:
-        # sql += f" HAVING generos LIKE '%{filtros_generos[0]}%'" # se fosse apenas 1 filtro
-        
-        
-    sql += " ORDER BY f.titulo;"
+    # Se vieram filtros de gênero, monta WHERE com IN (%s, %s, ...)
+    if filtros_generos and len(filtros_generos) > 0:
+        placeholders = ", ".join(["%s"] * len(filtros_generos))
+        where_clause = f"WHERE g.nome IN ({placeholders})"
+        params = filtros_generos
+
+    sql_final = f"{base_sql} {where_clause} GROUP BY f.id_filme ORDER BY f.titulo;"
 
     conn = get_connection()
-    # Usando o cursor com dicionário é essencial para o retorno correto
-    cur = conn.cursor(dictionary=True) 
-    
+    cur = conn.cursor(dictionary=True)
     try:
-        cur.execute(sql, params) # Passa os parâmetros de forma segura
+        cur.execute(sql_final, params)
         rows = cur.fetchall()
-        
-        # Pós-processamento: Remove a coluna auxiliar de filtro se você a criou, e renomeia
-        for row in rows:
-            # Garante que o frontend receba o nome esperado
-            row['generos'] = row.pop('generos_exibicao', row.get('generos_filtro'))
-            # Remova a coluna auxiliar de filtro
-            if 'generos_filtro' in row:
-                 del row['generos_filtro']
-            # O nome das colunas 'generos' virá como 'generos_exibicao'
-        
         return rows
-    
     finally:
         cur.close()
         conn.close()
+
 
 # Helper para inserir/recuperar entidade simples (Produtora, Ator, Diretor, Genero)
 def _get_or_create_produtora(conn, nome: str) -> int:
@@ -255,7 +221,49 @@ def list_filmes_por_classificacao(id_classificacao: int):
         cur.close()
         conn.close()
 
-from db.connection import get_connection
+def list_filmes_achamos_gostar() -> List[Dict]:
+    """
+    Retorna apenas os filmes cuja classificação é 'Achamos que você vai gostar'
+    (id_classificacao = 4).
+    """
+    sql = """
+    SELECT
+        f.id_filme,
+        f.titulo,
+        f.avaliacao,
+        f.tempo_duracao,
+        f.ano,
+        f.descricao,
+        f.poster,
+        c.nome AS classificacao,
+        GROUP_CONCAT(DISTINCT CONCAT(a.nome, ' ', a.sobrenome) SEPARATOR ', ') AS atores,
+        GROUP_CONCAT(DISTINCT CONCAT(d.nome, ' ', d.sobrenome) SEPARATOR ', ') AS diretores,
+        GROUP_CONCAT(DISTINCT p.nome SEPARATOR ', ') AS produtoras,
+        GROUP_CONCAT(DISTINCT g.nome SEPARATOR ', ') AS generos
+    FROM Filme f
+    LEFT JOIN Classificacao c ON f.id_classificacao = c.id_classificacao
+    LEFT JOIN Ator_Filme af ON f.id_filme = af.id_filme
+    LEFT JOIN Ator a ON af.id_ator = a.id_ator
+    LEFT JOIN Diretor_Filme df ON f.id_filme = df.id_filme
+    LEFT JOIN Diretor d ON df.id_diretor = d.id_diretor
+    LEFT JOIN Produtora_Filme pf ON f.id_filme = pf.id_filme
+    LEFT JOIN Produtora p ON pf.id_produtora = p.id_produtora
+    LEFT JOIN Genero_Filme gf ON f.id_filme = gf.id_filme
+    LEFT JOIN Genero g ON gf.id_genero = g.id_genero
+    WHERE f.id_classificacao = 4
+    GROUP BY f.id_filme
+    ORDER BY f.titulo;
+    """
+    conn = get_connection()
+    cur = conn.cursor(dictionary=True)
+    try:
+        cur.execute(sql)
+        rows = cur.fetchall()
+        return rows
+    finally:
+        cur.close()
+        conn.close()
+
 
 def list_generos():
     conn = get_connection()
@@ -289,6 +297,29 @@ def list_diretores():
     conn.close()
     return [{"_id": r[0], "nome": f"{r[1]} {r[2] or ''}".strip()} for r in rows]
 
+def list_filmes_por_genero(nome_genero: str) -> List[Dict]:
+    sql = """
+    SELECT
+        f.id_filme,
+        f.titulo,
+        f.poster,
+        ...
+    FROM Filme f
+    LEFT JOIN Genero_Filme gf ON f.id_filme = gf.id_filme
+    LEFT JOIN Genero g ON gf.id_genero = g.id_genero
+    WHERE g.nome = %s
+    GROUP BY f.id_filme
+    ORDER BY f.titulo;
+    """
+    conn = get_connection()
+    cur = conn.cursor(dictionary=True)
+    try:
+        cur.execute(sql, (nome_genero,))  # ✅ Passa o parâmetro corretamente
+        rows = cur.fetchall()
+        return rows
+    finally:
+        cur.close()
+        conn.close()
 
 
 

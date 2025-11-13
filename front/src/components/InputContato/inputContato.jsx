@@ -14,6 +14,7 @@ const InputContato = () => {
   };
 
   return (
+    
     <div className="inputContainer">
         <input
         type="text"

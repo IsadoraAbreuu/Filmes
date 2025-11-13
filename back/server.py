@@ -142,6 +142,18 @@ class APIHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
             return
         
+        # GET /api/filmes_achamos_gostar
+        if path == "/api/filmes_achamos_gostar":
+            try:
+                filmes = filmes_db.list_filmes_achamos_gostar()
+                self._set_json_response(200)
+                self.wfile.write(json.dumps({"status": "ok", "data": filmes}, default=str).encode("utf-8"))
+            except Exception as e:
+                self._set_json_response(500)
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
+        
         # GET /api/produtoras
         if path == "/api/produtoras":
             try:

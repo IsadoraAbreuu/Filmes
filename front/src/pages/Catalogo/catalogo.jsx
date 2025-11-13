@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 // Importe o seu componente de Carrossel/Secao de Filtro
 import CarrosselFiltroGenero from "../../components/SecaoFiltroGenero/secaoFiltroGenero"; 
 import ListaFilmesGrid from "../../components/ListaFilmes/listaFilmes";
-// Importe a função de mapeamento que criamos (Opção 1)
-import { formatarGenerosParaCarrossel } from '../../../public/utils/generoMap'; 
 import CharacterBanner from '../../components/BannerPersonagens/personagens'
 
 // Data para o componente CharacterBanner
@@ -30,22 +28,28 @@ const Catalogo = () => {
     
     // --- LÓGICA DE BUSCA DE GÊNEROS (Roda apenas na montagem) ---
     useEffect(() => {
-        fetch("http://localhost:8000/api/generos")
-            .then(res => res.json())
-            .then(json => {
-                // Se você corrigiu o backend, json.data conterá a lista bruta
-                if (json.status === "ok" && json.data) {
-                    // Formata os dados brutos (adiciona ícones e o item "Todos")
-                    const generosFormatados = formatarGenerosParaCarrossel(json.data);
-                    setListaGeneros(generosFormatados);
-                } else {
-                    console.error("Erro ao buscar gêneros: Formato de dados inesperado.", json);
-                }
-            })
-            .catch(err => {
-                console.error("Erro na requisição dos gêneros:", err);
-            });
-    }, []);
+    fetch("http://localhost:8000/api/generos")
+        .then(res => res.json())
+        .then(json => {
+            if (json.status === "ok" && json.data) {
+                // Formata os dados brutos diretamente, sem precisar do arquivo externo
+                const generosFormatados = [
+                    { id: 0, label: "Todos" }, // Sempre adiciona o filtro "Todos"
+                    ...json.data.map(g => ({
+                        id: g.id || g._id,   // dependendo do seu backend
+                        label: g.nome        // campo com o nome do gênero
+                    }))
+                ];
+                setListaGeneros(generosFormatados);
+            } else {
+                console.error("Erro ao buscar gêneros: Formato de dados inesperado.", json);
+            }
+        })
+        .catch(err => {
+            console.error("Erro na requisição dos gêneros:", err);
+        });
+}, []);
+
 
     // --- LÓGICA DE BUSCA DE FILMES (Roda na montagem e na mudança de filtros) ---
     useEffect(() => {
