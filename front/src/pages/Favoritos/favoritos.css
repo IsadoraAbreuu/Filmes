@@ -1,0 +1,34 @@
+.paginaFavoritos {
+  padding: 2rem;
+  color: #fff;
+}
+
+.listaFavoritos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.bannerFavoritos {
+  position: relative; /* necessário para posicionar filhos absolutos */
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.bannerFavoritos img {
+  display: block;
+}
+
+.bannerFavoritos .botaoDestaque {
+  position: absolute;
+  bottom: 20px;
+  left: 17%;
+  margin-bottom: 2rem;
+  transform: translateX(-50%);
+}
+
+.containerFavoritos {
+  margin-top: 4rem;
+}

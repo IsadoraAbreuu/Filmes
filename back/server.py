@@ -59,10 +59,25 @@ class APIHandler(SimpleHTTPRequestHandler):
         path = parsed.path
         qs = parse_qs(parsed.query)
 
-        # GET /api/filmes
+        # GET /api/filmes (com suporte a filtros de gênero)
         if path == "/api/filmes":
             try:
-                filmes = filmes_db.list_filmes()
+                # 1. Captura o parâmetro 'generos' da query string
+                generos_str = qs.get("generos", [None])[0] 
+                
+                # 2. Processa a string de gêneros (ex: "Acao,Terror") em uma lista
+                filtros_generos = []
+                if generos_str:
+                    # O unquote lida com caracteres especiais na URL.
+                    # Exemplo: 'Ação' vira 'A%C3%A7%C3%A3o' na URL. unquote() resolve isso.
+                    # split(',') divide a string em uma lista.
+                    generos_decodificados = unquote(generos_str)
+                    filtros_generos = [g.strip() for g in generos_decodificados.split(',')]
+                
+                # 3. Chama a função de banco de dados, passando a lista de filtros.
+                # Se não houver filtro na URL, 'filtros_generos' será uma lista vazia ([]).
+                filmes = filmes_db.list_filmes(filtros_generos=filtros_generos)
+                
                 self._set_json_response(200)
                 self.wfile.write(json.dumps({"status": "ok", "data": filmes}, default=str).encode("utf-8"))
             except Exception as e:
@@ -126,22 +141,55 @@ class APIHandler(SimpleHTTPRequestHandler):
                 self._set_json_response(500)
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
             return
-
-
-
         
         # GET /api/produtoras
         if path == "/api/produtoras":
             try:
-                # Chama a nova função que lista as produtoras
-                produtoras = filmes_db.list_produtoras() 
+                produtoras = filmes_db.list_produtoras()
                 self._set_json_response(200)
-                # Envia os dados (que agora incluem o logo_url de cada uma)
-                self.wfile.write(json.dumps({"status": "ok", "data": produtoras}, default=str).encode("utf-8"))
+                self.wfile.write(json.dumps(produtoras, ensure_ascii=False, default=str).encode("utf-8"))
             except Exception as e:
                 self._set_json_response(500)
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
             return
+        
+        # GET /api/generos
+        if path == "/api/generos":
+            try:
+                generos = filmes_db.list_generos()
+                self._set_json_response(200)
+                
+                # CORREÇÃO CRÍTICA AQUI:
+                # Enviar a resposta no formato padrão: {"status": "ok", "data": ...}
+                self.wfile.write(json.dumps({"status": "ok", "data": generos}, ensure_ascii=False, default=str).encode("utf-8"))
+            
+            except Exception as e:
+                self._set_json_response(500)
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
+        # GET /api/atores
+        if path == "/api/atores":
+            try:
+                atores = filmes_db.list_atores()
+                self._set_json_response(200)
+                self.wfile.write(json.dumps(atores, ensure_ascii=False, default=str).encode("utf-8"))
+            except Exception as e:
+                self._set_json_response(500)
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
+        # GET /api/diretores
+        if path == "/api/diretores":
+            try:
+                diretores = filmes_db.list_diretores()
+                self._set_json_response(200)
+                self.wfile.write(json.dumps(diretores, ensure_ascii=False, default=str).encode("utf-8"))
+            except Exception as e:
+                self._set_json_response(500)
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
 
         # GET /api/pendentes  (admin)
         if path == "/api/pendentes":
@@ -154,6 +202,20 @@ class APIHandler(SimpleHTTPRequestHandler):
             self._set_json_response(200)
             self.wfile.write(json.dumps({"status": "ok", "data": pend}, ensure_ascii=False).encode("utf-8"))
             return
+        
+        # Serve arquivos dentro de back/assets
+        if path.startswith("/assets/"):
+            file_path = Path(__file__).resolve().parent / path.lstrip("/")
+            if file_path.exists() and file_path.is_file():
+                self.send_response(200)
+                self.send_header("Content-type", "image/svg+xml")
+                add_cors_headers(self)
+                self.end_headers()
+                with open(file_path, "rb") as f:
+                    self.wfile.write(f.read())
+                return
+
+
 
         return super().do_GET()
 

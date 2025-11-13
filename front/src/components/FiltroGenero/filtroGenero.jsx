@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './filtroGenero.css'; 
 
-
-
-const FilterCard = ({ label, icone }) => {
-    const [isSelected, setIsSelected] = useState(false);
-
-    const handleCardClick = (e) => {
-        if (e.target.closest('.deselect-btn')) {
-             return; 
+// Adicione as props: isSelected, onSelect, e onDeselect
+const FiltroGenero = ({ label, icone, isSelected, onSelect, onDeselect }) => {
+    
+    // Altera o comportamento de clique para chamar a função do componente pai
+    const handleCardClick = () => {
+        // Se já está selecionado, o clique deve chamar a deseleção (ou o toggle)
+        // Aqui, simplificamos chamando onSelect para que o pai decida o que fazer
+        if (isSelected) {
+            onDeselect(label);
+        } else {
+            onSelect(label);
         }
-        setIsSelected(prev => !prev);
     };
 
-
+    // Altera o comportamento de deseleção para chamar a função do componente pai
     const handleDeselectClick = (e) => {
         e.stopPropagation(); 
-        setIsSelected(false);
+        onDeselect(label);
     };
 
     const cardClasses = `filtroGenero ${isSelected ? 'selected' : ''}`;
@@ -27,15 +29,16 @@ const FilterCard = ({ label, icone }) => {
             onClick={handleCardClick}
         >
             <span className="iconeFiltroGenero">
-                <img src={icone} alt='Ícone do filtro' />
+                {/* Aqui você pode renderizar o ícone dinamicamente */}
+                <img src={icone} alt={`Ícone do gênero ${label}`} />
             </span>
             <span className="textoFiltroGenero">{label}</span>
             
             {isSelected && (
-                 <button 
+                <button 
                     className="deselectBotao"
                     onClick={handleDeselectClick}
-                    aria-label="Deselecionar"
+                    aria-label={`Deselecionar ${label}`}
                 >
                     &times;
                 </button>
@@ -44,5 +47,4 @@ const FilterCard = ({ label, icone }) => {
     );
 };
 
-
-export default FilterCard;
+export default FiltroGenero;

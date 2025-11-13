@@ -42,24 +42,27 @@ function Home() {
     <>
       <div className="conteudoHome">
         <CarrosselPrincipal />
+        <main>
+          <SecaoFilme titulo="🔥 Em Alta" filmes={filmesEmAlta} />
+          <SecaoFilme titulo="🏆 Top 10" filmes={filmesTop10} />
+
+          {/* Banner de recomendações */}
+          <div className="containerRecomendacoes">
+            <img src={BannerHome} alt="Banner sobre recomendações de filmes" />
+            <Botao
+              link="/favoritos"
+              texto="Confira seus favoritos"
+              iconeSrc={IconeSeta}
+            />
+          </div>
+
+          <SecaoFilme titulo="🎞️ Clássicos do Cinema" filmes={filmesClassicos} />
+
         
-        <SecaoFilme titulo="🔥 Em Alta" filmes={filmesEmAlta} />
-        <SecaoFilme titulo="🏆 Top 10" filmes={filmesEmAlta} />
-
-        {/* Banner de recomendações */}
-        <div className="containerRecomendacoes">
-          <img src={BannerHome} alt="Banner sobre recomendações de filmes" />
-          <Botao
-            link="/favoritos"
-            texto="Confira seus favoritos"
-            iconeSrc={IconeSeta}
-          />
-        </div>
-
-        <SecaoFilme titulo="🎞️ Clássicos do Cinema" filmes={filmesClassicos} />
-
-       
-        {erro && <p style={{ color: "red" }}>Erro: {erro}</p>}
+          {erro && <p style={{ color: "red" }}>Erro: {erro}</p>}
+        </main>
+        
+        
       </div>
     </>
   );

@@ -15,14 +15,35 @@
 
 .containerImagem {
     background-color: rgb(131, 131, 131);
-    height: 55vh;
+    height: 92.5vh;
+    display: flex;
+  align-items: center;
+  justify-content: center;
     border-radius: 50px;
+    overflow: hidden;
+    width: 100%;
+  max-width: 530px;
+}
+
+.poster-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* mantém proporção e preenche o espaço */
+  border-radius: 10px;
+}
+
+.poster-placeholder {
+  color: #aaa;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 10px;
 }
 
 .avaliacaoEduracao {
     display: flex;
 }
 
+/* === ESTILO BASE PARA INPUTS E TEXTAREA === */
 .conteudoCadastrarFilme input, textarea{
     display: flex;
     padding: 10px;
@@ -34,6 +55,26 @@
     width: 531px;
     margin-top: 0.4rem;
     margin-bottom: 1.2rem;
+    
+    /* MUDANÇA 1: Fundo BRANCO e Borda */
+    border: 1px solid #FFFFFF; 
+    background-color: #FFFFFF; /* Fundo BRANCO */
+    color: #1a1a1a; /* Texto PRETO para contraste no fundo branco */
+}
+
+/* MUDANÇA 2: Placeholder cinza */
+.conteudoCadastrarFilme input::placeholder,
+.conteudoCadastrarFilme textarea::placeholder {
+    color: #888888; /* Cinza */
+}
+/* No Firefox, precisamos de seletores adicionais */
+.conteudoCadastrarFilme input:-moz-placeholder,
+.conteudoCadastrarFilme textarea:-moz-placeholder {
+    color: #888888;
+}
+.conteudoCadastrarFilme input::-webkit-input-placeholder,
+.conteudoCadastrarFilme textarea::-webkit-input-placeholder {
+    color: #888888;
 }
 
 .conteudoCadastrarFilme textarea {
@@ -51,14 +92,98 @@
 }
 
 .avaliacaoEduracao input {
-  width: 236px; 
+    width: 236px; 
 }
 
 .avaliacao {
-  margin-right: 3.7rem;
+    margin-right: 3.7rem;
 }
 
 .botaoCadastrar {
     margin-top: 2rem;
     text-align: center;
+}
+
+/* --- ESTILOS DO REACT-SELECT (PARA FICAR BRANCO E ARREDONDADO) --- */
+/* Prefixo usado no JSX: "custom-select" */
+
+/* 1. Container Principal (A caixa arredondada que simula o input) */
+/* --- ESTILOS DO REACT-SELECT (PARA FICAR BRANCO E ARREDONDADO) --- */
+
+/* 1. Container Principal (A caixa arredondada) */
+.custom-select__control {
+    border-radius: 20px !important;
+    border: 1px solid #FFFFFF !important;
+    background-color: #FFFFFF !important; /* MUDANÇA 1: Fundo BRANCO */
+    color: #000000 !important; /* Texto PRETO/Escuro */
+    min-height: 40px !important; 
+    box-shadow: none !important; 
+    
+    /* Ajusta a largura para combinar com os inputs */
+    width: 531px; 
+    margin-top: 0.4rem;
+    margin-bottom: 1.2rem;
+}
+
+/* 2. Placeholder */
+.custom-select__placeholder {
+    color: #888888 !important; /* MUDANÇA 2: Placeholder Cinza */
+}
+
+/* 3. Cor do texto digitado no campo de busca (dentro do select) */
+.custom-select__input-container {
+    color: #1a1a1a !important; /* MUDANÇA 3: Texto do input de busca (dentro do select) */
+}
+
+/* 4. Opções selecionadas (as tags/pastilhas dentro da caixa) */
+.custom-select__multi-value {
+    /* Mantendo um fundo escuro para as tags para contraste */
+    background-color: #d8d8d8 !important; /* Fundo cinza claro para as tags */
+    color: #1a1a1a !important;
+    border-radius: 10px !important;
+}
+
+/* 5. Estilo da seta (opcional, ajusta a cor para cinza escuro no fundo branco) */
+.custom-select__indicator-separator {
+    background-color: #ccc !important;
+}
+.custom-select__indicator svg {
+    fill: #888888 !important; /* MUDANÇA 4: Cor do ícone de seta para Cinza */
+}
+
+/* --- REGRAS JÁ EXISTENTES (Fundo da Caixa do Select) --- */
+
+.custom-select__control {
+    /* ... (Regras para a caixa de seleção fechada, que já está branca) ... */
+}
+
+/* --- REGRAS PARA O MENU (A LISTA QUE SE ABRE) --- */
+
+/* 1. Fundo do Menu (Lista de Opções) */
+.custom-select__menu {
+    border-radius: 15px !important;
+    /* MUDANÇA PRINCIPAL: Fundo do dropdown para ser ESCURO (seu tema) */
+    background-color: #ffffff !important; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* 2. Estilo base das Opções (Texto) */
+.custom-select__option {
+    /* MUDANÇA: Cor do texto das opções para BRANCO */
+    color: #000000 !important; 
+    background-color: transparent !important;
+}
+
+/* 3. Opção ao Passar o Mouse ou Focar (o azul claro que você viu) */
+.custom-select__option--is-focused {
+    /* MUDANÇA: Cor de fundo ao focar/mouse para um CINZA ESCURO (seu tema) */
+    background-color: #ccc !important; 
+}
+
+/* 4. Opção Atualmente Selecionada no Dropdown */
+/* Esta regra é para quando a opção JÁ foi selecionada e o menu é reaberto */
+.custom-select__option--is-selected {
+    /* Cor de fundo para itens já selecionados no menu (pode ser um tom mais claro de cinza) */
+    background-color: #555555 !important; 
+    color: #FFFFFF !important;
 }

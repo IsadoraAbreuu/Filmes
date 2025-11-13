@@ -6,10 +6,9 @@
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
-  flex-shrink: 0; 
-  scroll-snap-align: start; 
+  flex-shrink: 0;
+  scroll-snap-align: start;
 }
-
 
 .cardFilme:hover {
   transform: scale(1.03);
@@ -44,9 +43,10 @@
 }
 
 .tituloFilme {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin: 0;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  max-width: 100%; 
 }
 
 .botaoFavoritos {
@@ -58,6 +58,7 @@
   height: 30px;
   cursor: pointer;
   color: #FFF;
+  display: grid;
   place-items: center;
   transition: background 0.3s ease, transform 0.2s;
 }
@@ -82,5 +83,19 @@
 
 .divisao {
   opacity: 0.7;
+}
+
+/* === ❤️ ÍCONE DE FAVORITO === */
+.iconeCoracao {
+  width: 20px;
+  height: 20px;
+  transition: filter 0.3s ease;
+  align-items: center;
+}
+
+/* Quando favoritado (vermelho) */
+.iconeCoracao.ativo {
+  filter: invert(39%) sepia(94%) saturate(6480%) hue-rotate(356deg)
+    brightness(97%) contrast(119%);
 }
 

@@ -1,69 +1,91 @@
+/* Defina a variável CSS para o gap na raiz ou no container mais próximo */
+:root {
+  --gap-carrossel: 3rem; /* Você pode ajustar este valor */
+}
+
 .secaoDeFilmes {
-    width: 80%; 
-    margin: auto;
-    margin-bottom: 5rem;
-    margin-top: 6rem;
+  width: 90%;
+  margin: auto;
+  margin-bottom: 5rem;
+  margin-top: 6rem;
+  overflow: hidden;
+  
 }
 
 .cabecalhoSecao {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Alinha verticalmente o título e as setas */
-    margin-bottom: 1rem; /* Espaço entre o cabeçalho e a lista de filmes */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-/* Container das Setas (Fica à direita) */
 .navegacaoSetas {
-    display: flex;
-    gap: 10px; /* Espaço entre as duas setas */
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-/* ➡️ Estilo Base das Setas (Branco/Cor clara) */
 .botaoSeta {
-    /* Removido: position: absolute; e top/transform, pois agora está em display: flex */
-    z-index: 10;
-    
-    background-color: rgba(255, 255, 255, 0.4); /* Fundo branco semi-transparente */
-    color: #000; /* Cor escura para a seta */
-    
-    /* Propriedades do botão */
-    border: none;
-    border-radius: 50%;
-    width: 30px; 
-    height: 30px; 
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    display: grid;
-    place-items: center;
-    transition: all 0.2s ease;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s ease;
 }
 
 .botaoSeta:hover {
-    background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
-/* Efeito Gradiente ao CLICAR (estado :active) */
 .botaoSeta:active {
-    /* Gradiente de exemplo, ajuste as cores conforme seu tema (rosa e laranja da imagem) */
-    background: linear-gradient(135deg, #f96d6d 0%, #ffc74f 100%); 
-    color: #FFF; /* Mude a cor do ícone para branco */
-    transform: scale(0.95); /* Animação de "apertar" */
+  background: linear-gradient(135deg, #f96d6d 0%, #ffc74f 100%);
+  color: #fff;
+  transform: scale(0.95);
+}
+
+.carrosselContainer {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
 }
 
 .listaFilmes {
-    display: flex; 
-    overflow-x: auto; 
-    flex-wrap: nowrap; 
-    gap: 1rem; 
-    margin-top: 0; /* Ajustado para não ter margem duplicada */
-    scroll-snap-type: x mandatory; 
-    -ms-overflow-style: none; 
-    scrollbar-width: none; 
-    padding-bottom: 10px; 
+  display: flex;
+  transition: transform 0.5s ease;
+  /* MUDANÇA: Use a variável CSS para o gap */
+  gap: var(--gap-carrossel); 
+  box-sizing: border-box;
+  padding: 0;
+  /* width será definido via inline style no JSX */
 }
 
-.listaFilmes::-webkit-scrollbar {
-    display: none;
+.wrapperCard {
+  box-sizing: border-box;
+  /* MUDANÇA CRÍTICA: flex-basis agora calcula o espaço de 4 cards (25%) 
+     MENOS a fração do GAP para que tudo se encaixe perfeitamente. */
+  flex: 0 0 calc((100% / 4) - (var(--gap-carrossel) * 3 / 4)); /* Para 4 cards visíveis */
+}
+
+/* === Media Queries para Responsividade === */
+/* Você pode ajustar o 'flex-basis' aqui para diferentes tamanhos de tela */
+
+@media (max-width: 900px) {
+  .wrapperCard {
+    /* 2 cards visíveis, então 50% menos a fração do GAP */
+    flex: 0 0 calc((100% / 2) - (var(--gap-carrossel) * 1 / 2)); 
+  }
+}
+
+@media (max-width: 600px) {
+  .wrapperCard {
+    /* 1 card visível, então 100% menos a fração do GAP (opcional, mas bom ter) */
+    flex: 0 0 calc(100% - var(--gap-carrossel)); 
+  }
 }

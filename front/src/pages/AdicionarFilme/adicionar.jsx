@@ -8,7 +8,12 @@ const AdicionarFilme = () => {
     // window.location.href = "/filmes";
   };
 
-  return <FormFilme modo="add" onSubmit={handleNovoFilme} />;
+  return (
+    <>
+      <FormFilme modo="add" onSubmit={handleNovoFilme} />;
+    </>
+  )
+  
 };
 
 export default AdicionarFilme;
