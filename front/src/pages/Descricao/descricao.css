@@ -1,0 +1,39 @@
+/* Container geral para listas de pessoas */
+.listaPessoas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+/* Cada card de pessoa/produtora */
+.pessoaCard {
+  width: 120px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Imagem da pessoa ou logo da produtora */
+.pessoaCard img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%; /* Faz a imagem circular */
+  border: 2px solid #ddd;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+/* Efeito ao passar o mouse */
+.pessoaCard img:hover {
+  transform: scale(1.05);
+  border-color: #ff6b6b;
+}
+
+/* Nome abaixo da imagem */
+.pessoaCard p {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  word-wrap: break-word;
+}

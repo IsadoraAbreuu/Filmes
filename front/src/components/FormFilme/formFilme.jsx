@@ -282,7 +282,7 @@ const FormFilme = ({ modo = "add", filmeInicial = {}, onSubmit }) => {
                         <div className="botaoCadastrar">
                             <Botao
                                 link="/catalogo"
-                                texto="Enviar novo filme"
+                                texto="Enviar"
                                 iconeSrc={IconeAdicionar}
                             />
                         </div>

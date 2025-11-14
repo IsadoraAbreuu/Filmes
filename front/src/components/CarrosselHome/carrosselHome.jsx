@@ -14,7 +14,7 @@ import BarracaBeijo from '../../assets/images/barraca-beijo.svg'
 const mockFilmesCarrossel = [
     {
         id: 1,
-        titulo: 'Diário de uma Paião',
+        titulo: 'Diário de uma Paixão',
         descricao: 'Uma intensa jornada de amor e esperança, onde lembranças, escolhas e promessas desafiam o esquecimento e a passagem dos anos.',
         capaFundo: DiarioPaixao,
     },

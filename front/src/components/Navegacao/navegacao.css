@@ -1,0 +1,51 @@
+/* Container e Nav (Garantindo que os links estejam lado a lado) */
+.movie-tabs-container {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.movie-tabs-nav {
+    display: flex;
+    gap: 20px;
+    /* Alinha o texto das abas */
+    margin-bottom: -2px; /* Puxa para cima para tocar na linha */
+}
+
+/* Estilo do Item (Link) */
+.tab-item {
+    color: #a0a0a0; /* Cor cinza padrão */
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: 500;
+    padding-bottom: 8px; /* Espaço para a linha de hover/ativa */
+    position: relative;
+    transition: color 0.3s;
+}
+
+.tab-item:hover {
+    color: #f0f0f0;
+}
+
+/* 🌟 ESTILIZAÇÃO DA ABA ATIVA 🌟 */
+.tab-item.active {
+    color: #ffffff; /* Cor branca para o texto ativo */
+}
+
+/* Linha Colorida (A linha que aparece na imagem) */
+.tab-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    /* O gradiente da sua imagem é roxo/laranja */
+    background: linear-gradient(90deg, #CE3B92 0%, #E9A45B 100%);
+}
+
+/* Linha Divisória Inferior */
+.tab-separator-line {
+    border: none;
+    border-top: 1px solid #494949; /* Cor cinza escura para a linha */
+    margin: 0;
+}

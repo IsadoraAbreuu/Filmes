@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./card.css";
 import IconeCoracao from "../../assets/icons/coracao.svg";
 import IconeEstrela from "../../assets/icons/estrela.svg";
@@ -11,7 +12,7 @@ function getImageUrl(path) {
   return `http://localhost:8000/${path}`;
 }
 
-export default function CardFilme({ poster, titulo, avaliacao, ano }) {
+export default function CardFilme({ id, poster, titulo, avaliacao, ano }) {
   const imgRef = useRef();
   const [bgColor, setBgColor] = useState("rgba(0,0,0,0.5)");
   const [favoritado, setFavoritado] = useState(false);
@@ -55,8 +56,10 @@ useEffect(() => {
     }
   };
 
+  const navigate = useNavigate();
+
   return (
-    <div className="cardFilme">
+    <div className="cardFilme" onClick={() => navigate(`/filme/${id}`)}>
       <img
         ref={imgRef}
         src={getImageUrl(poster)}

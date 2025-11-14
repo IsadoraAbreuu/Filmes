@@ -11,6 +11,7 @@ export default function ListaFilmesGrid({ titulo, filmes }) {
       <div className="filmesGridContainer">
         {filmes.map(filme => (
           <CardFilme 
+            id={filme.id_filme}
             key={filme.id_filme}
             poster={filme.poster}
             titulo={filme.titulo}

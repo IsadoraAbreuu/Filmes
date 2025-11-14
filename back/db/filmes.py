@@ -74,26 +74,77 @@ def _get_or_create_produtora(conn, nome: str) -> int:
 
 def list_produtoras() -> List[Dict]:
     """
-    Retorna a lista de todas as produtoras com seus nomes e URLs de logo.
-    Assume-se que a tabela Produtora tem uma coluna 'logo_url'.
+    Retorna a lista de produtoras do banco.
     """
-    sql = """
-    SELECT 
-        id_produtora, 
-        nome, 
-        foto_produtora 
-    FROM Produtora
-    ORDER BY nome;
-    """
+    sql = "SELECT id_produtora, nome, foto_produtora FROM Produtora ORDER BY nome;"
     conn = get_connection()
     cur = conn.cursor(dictionary=True)
     try:
         cur.execute(sql)
         rows = cur.fetchall()
-        return rows
+        produtoras = []
+        for r in rows:
+            produtoras.append({
+                "id": r["id_produtora"],   # renomeia para 'id'
+                "nome": r["nome"],
+                "foto_produtora": r["foto_produtora"]  # retorna o nome do arquivo como está no banco
+            })
+        return produtoras
     finally:
         cur.close()
         conn.close()
+
+def get_filme_by_id(id_filme: int) -> Optional[Dict]:
+    sql = """
+    SELECT
+        f.id_filme,
+        f.titulo,
+        f.avaliacao,
+        f.tempo_duracao,
+        f.ano,
+        f.descricao,
+        f.poster,
+        c.nome AS classificacao,
+        GROUP_CONCAT(DISTINCT CONCAT(a.nome, ' ', a.sobrenome) SEPARATOR ', ') AS atores,
+        GROUP_CONCAT(DISTINCT CONCAT(d.nome, ' ', d.sobrenome) SEPARATOR ', ') AS diretores,
+        GROUP_CONCAT(DISTINCT p.nome SEPARATOR ', ') AS produtoras,
+        GROUP_CONCAT(DISTINCT g.nome SEPARATOR ', ') AS generos
+    FROM Filme f
+    LEFT JOIN Classificacao c ON f.id_classificacao = c.id_classificacao
+    LEFT JOIN Ator_Filme af ON f.id_filme = af.id_filme
+    LEFT JOIN Ator a ON af.id_ator = a.id_ator
+    LEFT JOIN Diretor_Filme df ON f.id_filme = df.id_filme
+    LEFT JOIN Diretor d ON df.id_diretor = d.id_diretor
+    LEFT JOIN Produtora_Filme pf ON f.id_filme = pf.id_filme
+    LEFT JOIN Produtora p ON pf.id_produtora = p.id_produtora
+    LEFT JOIN Genero_Filme gf ON f.id_filme = gf.id_filme
+    LEFT JOIN Genero g ON gf.id_genero = g.id_genero
+    WHERE f.id_filme = %s
+    GROUP BY f.id_filme;
+    """
+
+    conn = get_connection()
+    cur = conn.cursor(dictionary=True)
+
+    try:
+        cur.execute(sql, (id_filme,))
+        row = cur.fetchone()
+
+        if not row:
+            return None
+
+        # transforma CSV -> lista
+        row["atores"] = row["atores"].split(", ") if row["atores"] else []
+        row["diretores"] = row["diretores"].split(", ") if row["diretores"] else []
+        row["produtoras"] = row["produtoras"].split(", ") if row["produtoras"] else []
+        row["generos"] = row["generos"].split(", ") if row["generos"] else []
+
+        return row
+
+    finally:
+        cur.close()
+        conn.close()
+
 
 def list_filmes_classicos() -> List[Dict]:
     """

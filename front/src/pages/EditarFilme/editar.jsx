@@ -11,7 +11,7 @@ const EditarFilme = () => {
   useEffect(() => {
     const fetchFilme = async () => {
       try {
-        const res = await fetch(`http://localhost:3001/api/filmes/${id}`);
+        const res = await fetch(`http://localhost:8000/api/filme?id=${id}`);
         if (!res.ok) throw new Error("Filme não encontrado");
         const data = await res.json();
         setFilme(data);

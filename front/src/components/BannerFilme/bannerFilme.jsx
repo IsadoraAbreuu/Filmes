@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import ColorThief from "colorthief"; // ou a lib que você já usa
+import ColorThief from "colorthief";
 import "./bannerFilme.css";
 
 export default function BannerFilme({ filme }) {
   const [bgColor, setBgColor] = useState("#000");
 
   useEffect(() => {
-    if (filme.poster) {
+    if (filme?.poster) {
       const img = new Image();
       img.crossOrigin = "Anonymous";
       img.src = filme.poster;
@@ -16,17 +16,21 @@ export default function BannerFilme({ filme }) {
         setBgColor(`rgb(${r}, ${g}, ${b})`);
       };
     }
-  }, [filme.poster]);
+  }, [filme?.poster]);
 
   return (
     <div
       className="filme-header"
       style={{
-        background: `linear-gradient(to right, ${bgColor}cc, #000000dd)`,
+        backgroundImage: `
+          linear-gradient(to right, ${bgColor}cc, #000000dd),
+          url(${filme.poster})
+        `
       }}
     >
       <div className="filme-header-content">
         <h1>{filme.titulo}</h1>
+
         <div className="filme-generos">
           {filme.generos?.map((g, i) => (
             <span key={i} className="genero">
@@ -34,6 +38,7 @@ export default function BannerFilme({ filme }) {
             </span>
           ))}
         </div>
+
         <p className="filme-tagline">{filme.tagline}</p>
       </div>
 

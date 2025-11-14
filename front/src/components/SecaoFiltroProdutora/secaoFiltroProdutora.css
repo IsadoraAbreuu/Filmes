@@ -1,0 +1,46 @@
+.carrosselContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 85vw;
+  overflow: hidden;
+  padding: 0.5rem 2rem;
+  margin-top: 3rem;
+}
+
+.carrosselFiltros {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 1rem 0;
+}
+
+.carrosselFiltros::-webkit-scrollbar {
+  display: none;
+}
+
+.seta {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 10;
+  padding: 0.4rem 0.7rem;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.seta:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.seta-direita {
+  right: 0.3rem;
+}

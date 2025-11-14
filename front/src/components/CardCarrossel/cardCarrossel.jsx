@@ -17,7 +17,7 @@ function CardCarrossel({ filme, className, onCardClick }) {
                 <h2 className="cardTitulo">{titulo}</h2>
                 <p className="cardDescricao">{descricao}</p>
                 <BotaoInfo 
-                    link="/descricao"
+                    link="/filme/:id"
                     texto="Saiba mais"
                     iconeSrc={IconeSeta}
                 />

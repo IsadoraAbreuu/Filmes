@@ -1,12 +1,57 @@
-.cardContainer {
-    border: none;
-    background: none;
-    cursor: pointer;
-  }
-  
-  .cardImage {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-  
+.filtroProdutora {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #1c1c1c;
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.8rem;
+  min-width: 90px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  position: relative;
+}
+
+.filtroProdutora:hover {
+  background-color: #2a2a2a;
+  transform: scale(1.05);
+}
+
+.filtroProdutora.selected {
+  background-color: #ff4c4c;
+}
+
+.iconeFiltroProdutora {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconeFiltroProdutora img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.textoFiltroProdutora {
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.deselectBotao {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+}

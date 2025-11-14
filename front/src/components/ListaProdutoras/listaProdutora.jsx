@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// IMPORTANTE: Revisei o caminho de importação. Mantenha o nome do componente como 'ImageCard'.
 import ImageCard from '../FiltroProdutora/filtroProdutora'; 
 import './listaProdutora.css'; // Importa os estilos CSS
 
@@ -44,7 +43,6 @@ const FiltroProdutora = () => {
   }
 
   return (
-    // CORRIGIDO: Usando o nome da classe como string
     <div className="listContainer">
       {produtoras.map((produtora) => (
         <ImageCard 

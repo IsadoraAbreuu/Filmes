@@ -5,7 +5,7 @@ const AdicionarFilme = () => {
   const handleNovoFilme = (filme) => {
     console.log("Filme adicionado:", filme);
     // aqui você pode redirecionar para a lista de filmes, ex:
-    // window.location.href = "/filmes";
+      window.location.href = "/filmes";
   };
 
   return (
