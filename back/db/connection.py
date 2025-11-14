@@ -6,7 +6,7 @@ from mysql.connector import Error
 DB_CONFIG = {
     "host": "localhost",
     "user": "root",
-    "password": "root",
+    "password": "senai",
     "database": "PLATAFORMA_FILMES",
     "raise_on_warnings": True,
     "use_pure": True

@@ -67,7 +67,7 @@ const Catalogo = () => {
           const produtorasFormatadas = json.data.map(p => ({
             id: p.id || p._id,
             nome: p.nome,
-            imagem: p.imagem // vem do banco
+            imagem: p.foto_produtora // Retorna o nome do arquivo, conforme o seu backend
           }));
           setListaProdutoras(produtorasFormatadas);
         } else {
@@ -157,8 +157,8 @@ const Catalogo = () => {
     setFiltros(prevFiltros => ({ ...prevFiltros, ...novosFiltros }));
     // Opcional: Limpar filtros de Gênero/Produtora quando um filtro de texto é usado
     if (filtrosGenero.length > 0 || filtrosProdutora.length > 0) {
-      setFiltrosGenero([]);
-      setFiltrosProdutora([]);
+      setFiltrosGenero([]);
+      setFiltrosProdutora([]);
     }
   };
 

@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import BannerFilme from "../../components/BannerFilme/bannerFilme";
-import NavegacaoAbas from "../../components/Navegacao/navegacao";
+import CardPessoa from "../../components/CardDiretorEAtor/cardPessoas";
 import './descricao.css'
 
 export default function DetalhesFilme() {
@@ -66,33 +65,26 @@ export default function DetalhesFilme() {
           </>
         )}
 
-        {filme.diretores?.length > 0 && (
-          <>
-            <h3>Diretor(es)</h3>
-            <div className="listaPessoas">
-              {filme.diretores.map((d, i) => (
-                <div key={i} className="pessoaCard">
-                  <img src={getImageUrl(d.foto)} alt={d.nome} />
-                  <p>{d.nome}</p>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+        <h2>Direção</h2>
+        {filme.diretores.map((diretor) => (
+        <CardPessoa 
+            key={diretor.id}
+            fotoUrl={diretor.fotoUrl} // 👈 Passa a URL externa completa
+            nomeCompleto={diretor.nome}
+            role="Diretor"
+        />
+        ))}
 
-        {filme.atores?.length > 0 && (
-          <>
-            <h3>Atores</h3>
-            <div className="listaPessoas">
-              {filme.atores.map((a, i) => (
-                <div key={i} className="pessoaCard">
-                  <img src={getImageUrl(a.foto)} alt={a.nome} />
-                  <p>{a.nome}</p>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+        <h2>Elenco</h2>
+        {filme.atores.map((ator) => (
+        <CardPessoa 
+            key={ator.id}
+            fotoUrl={ator.fotoUrl} // 👈 Passa a URL externa completa
+            nomeCompleto={ator.nome}
+            role="Ator"
+          />
+      ))}
+          </div>
 
         {filme.produtoras?.length > 0 && (
           <>
@@ -107,7 +99,6 @@ export default function DetalhesFilme() {
             </div>
           </>
         )}
-      </div>
 
       
     </main>

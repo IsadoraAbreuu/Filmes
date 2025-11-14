@@ -5,7 +5,6 @@ import IconeCoracao from "../../assets/icons/coracao.svg";
 import IconeEstrela from "../../assets/icons/estrela.svg";
 import ColorThief from "colorthief";
 
-// 🔧 Gera a URL correta da imagem (tanto local quanto externa)
 function getImageUrl(path) {
   if (!path) return "";
   if (path.startsWith("http")) return path;
@@ -17,19 +16,15 @@ export default function CardFilme({ id, poster, titulo, avaliacao, ano }) {
   const [bgColor, setBgColor] = useState("rgba(0,0,0,0.5)");
   const [favoritado, setFavoritado] = useState(false);
 
-  // 🧠 Carrega favoritos do localStorage ao montar
-// 🧠 Carrega favoritos do localStorage ao montar
 useEffect(() => {
   try {
     const favs = JSON.parse(localStorage.getItem("favoritos") || "[]");
-    // filtra apenas objetos válidos que tenham título
     const validos = Array.isArray(favs)
       ? favs.filter((f) => f && typeof f === "object" && f.titulo)
       : [];
 
     setFavoritado(validos.some((f) => f.titulo === titulo));
 
-    // salva de volta os válidos (corrige o localStorage)
     localStorage.setItem("favoritos", JSON.stringify(validos));
   } catch (e) {
     console.error("Erro ao ler favoritos:", e);
@@ -38,7 +33,7 @@ useEffect(() => {
 }, [titulo]);
 
 
-  // ❤️ Alterna favorito + salva/remover do localStorage
+  // alterna favorito + salva/remover do localStorage
   const toggleFavorito = (e) => {
     e.stopPropagation();
     const favs = JSON.parse(localStorage.getItem("favoritos") || "[]");
@@ -48,6 +43,7 @@ useEffect(() => {
       const novos = favs.filter((f) => f.titulo !== titulo);
       localStorage.setItem("favoritos", JSON.stringify(novos));
       setFavoritado(false);
+      
     } else {
       // adiciona
       const novoFilme = { poster, titulo, avaliacao, ano };

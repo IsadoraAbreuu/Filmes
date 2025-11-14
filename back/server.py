@@ -1,5 +1,4 @@
-# back/server.py
- # servidor principal (rotas e endpoints)
+ # servidor principal q roda (rotas e endpoints)
 
 import os
 import json
@@ -7,8 +6,6 @@ from http.server import SimpleHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 from urllib.parse import unquote
 from pathlib import Path
-
-# imports dos módulos locais
 from db.connection import get_connection
 from db import filmes as filmes_db
 from cors import add_cors_headers
@@ -16,7 +13,6 @@ from cors import add_cors_headers
 DATA_DIR = Path(__file__).resolve().parent / "data"
 PENDENTES_FILE = DATA_DIR / "pendentes.json"
 
-# garante que o data/ e o arquivo existam
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 if not PENDENTES_FILE.exists():
     PENDENTES_FILE.write_text("[]", encoding="utf-8")
@@ -35,7 +31,6 @@ def write_pendentes(lst):
 
 
 class APIHandler(SimpleHTTPRequestHandler):
-    # Serve somente arquivos estáticos da pasta pai - mas nosso objetivo é API JSON
     def _set_json_response(self, code=200):
         self.send_response(code)
         add_cors_headers(self)
@@ -64,22 +59,29 @@ class APIHandler(SimpleHTTPRequestHandler):
             try:
                 generos_str = qs.get("generos", [None])[0] 
                 produtoras_str = qs.get("produtoras", [None])[0]
+                filtro_ator = qs.get("ator", [None])[0]
+                filtro_diretor = qs.get("diretor", [None])[0]
+                filtro_ano = qs.get("ano", [None])[0]
 
-                # --- Filtro de gêneros ---
+                # --- filtro de gêneros ---
                 filtros_generos = []
                 if generos_str:
                     generos_decodificados = unquote(generos_str)
                     filtros_generos = [g.strip() for g in generos_decodificados.split(',')]
 
-                # --- Filtro de produtoras ---
+                # --- filtro de produtoras ---
                 filtros_produtoras = []
                 if produtoras_str:
                     produtoras_decodificadas = unquote(produtoras_str)
                     filtros_produtoras = [m.strip() for m in produtoras_decodificadas.split(',')]
 
+                # --- chama funções de filtros de ator, diretor e ano, além de genero e produtora ---
                 filmes = filmes_db.list_filmes(
                     filtros_generos=filtros_generos,
-                    filtros_produtoras=filtros_produtoras
+                    filtros_produtoras=filtros_produtoras,
+                    filtro_ator=filtro_ator,
+                    filtro_diretor=filtro_diretor,
+                    filtro_ano=filtro_ano
                 )
 
                 self._set_json_response(200)
@@ -91,7 +93,7 @@ class APIHandler(SimpleHTTPRequestHandler):
             return
 
 
-        # GET /api/filme?id=...
+        # GET /api/filme?id=
         if path == "/api/filme":
             id_str = qs.get("id", [None])[0]
             if not id_str:
@@ -162,10 +164,7 @@ class APIHandler(SimpleHTTPRequestHandler):
       # GET /api/produtoras
         if path == "/api/produtoras":
             try:
-                # chama a função do filmes.py
                 produtoras = filmes_db.list_produtoras()
-                
-                # responde no padrão {"status": "ok", "data": ...}
                 self._set_json_response(200)
                 self.wfile.write(
                     json.dumps({"status": "ok", "data": produtoras}, ensure_ascii=False, default=str)
@@ -184,9 +183,6 @@ class APIHandler(SimpleHTTPRequestHandler):
             try:
                 generos = filmes_db.list_generos()
                 self._set_json_response(200)
-                
-                # CORREÇÃO CRÍTICA AQUI:
-                # Enviar a resposta no formato padrão: {"status": "ok", "data": ...}
                 self.wfile.write(json.dumps({"status": "ok", "data": generos}, ensure_ascii=False, default=str).encode("utf-8"))
             
             except Exception as e:
@@ -217,7 +213,7 @@ class APIHandler(SimpleHTTPRequestHandler):
             return
 
 
-        # GET /api/pendentes  (admin)
+        # GET /api/pendentes (admin)
         if path == "/api/pendentes":
             role = self.headers.get("X-User-Role", "")
             if role != "admin":
@@ -229,7 +225,7 @@ class APIHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"status": "ok", "data": pend}, ensure_ascii=False).encode("utf-8"))
             return
         
-        # Serve arquivos dentro de back/assets
+        # serve arquivos/imagens que tenho dentro de back/assets
         if path.startswith("/assets/"):
             file_path = Path(__file__).resolve().parent / path.lstrip("/")
             if file_path.exists() and file_path.is_file():
@@ -241,10 +237,6 @@ class APIHandler(SimpleHTTPRequestHandler):
                     self.wfile.write(f.read())
                 return
 
-
-
-        return super().do_GET()
-
     def _read_json_body(self):
         length = int(self.headers.get("Content-Length", 0))
         if length == 0:
@@ -253,9 +245,7 @@ class APIHandler(SimpleHTTPRequestHandler):
         try:
             return json.loads(raw)
         except json.JSONDecodeError:
-            # tentar parse de form-url-encoded (caso venham de formulários)
             parts = parse_qs(raw)
-            # simplifica: pega primeiro valor de cada key
             return {k: v[0] if isinstance(v, list) else v for k, v in parts.items()}
 
     # POST endpoints
@@ -266,8 +256,7 @@ class APIHandler(SimpleHTTPRequestHandler):
         # Usuário solicita adicionar um novo filme (vai para pendentes.json)
         if path == "/api/solicitar_adicao":
             body = self._read_json_body()
-            # espera um objeto com campos do filme (titulo, avaliacao, tempo_duracao, ano, descricao, poster, generos, atores, produtoras, diretores)
-            # validação mínima:
+            
             titulo = body.get("titulo") or body.get("title")
             if not titulo:
                 self._set_json_response(400)
@@ -411,7 +400,7 @@ class APIHandler(SimpleHTTPRequestHandler):
             return
 
         # Se não for nenhuma rota acima, fallback
-        return super().do_POST()
+        #return super().do_POST()
 
 
 def run(server_class=HTTPServer, handler_class=APIHandler, port=8000):

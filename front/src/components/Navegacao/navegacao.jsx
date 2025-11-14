@@ -3,15 +3,13 @@ import { NavLink, useParams } from 'react-router-dom';
 import './navegacao.css'; 
 
 const NavegacaoAbas = () => {
-    // 1. Pega o ID do filme da URL (ex: /filme/48)
+    // pega o id do filme que esta na URL
     const { id } = useParams(); 
 
-    // Define os caminhos relativos ao ID atual
-    const infoPath = `/filme/${id}`;         // Ex: /filme/48 (Para a descrição)
-    const editPath = `/filme/${id}/editar`; // Ex: /filme/48/editar (Para a edição)
+    // a partir do id, define caminho de:
+    const infoPath = `/filme/${id}`; // informações do filme como descrição/sinopse       
+    const editPath = `/filme/${id}/editar`; // form de edição das informações daquele filme
     
-    // O end={true} garante que o link 'Informações' só esteja ativo se o caminho for exatamente '/filme/id'
-    // O NavLink adiciona a classe 'active' ao link selecionado.
 
     return (
         <div className="movie-tabs-container">
@@ -37,7 +35,7 @@ const NavegacaoAbas = () => {
                 </NavLink>
 
             </nav>
-            {/* Linha Divisória de Estilo */}
+
             <hr className="tab-separator-line" />
         </div>
     );

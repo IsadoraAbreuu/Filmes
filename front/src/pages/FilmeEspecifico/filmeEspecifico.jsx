@@ -17,7 +17,8 @@ export default function FilmeEspecifico({ id }) {
   return (
     <main>
       <BannerFilme filme={filme} />
-      {/* aqui pode vir sinopse, diretores, elenco etc */}
+      {/* componente de filme detalhes que exibe as infomações do filme ou
+      componente de edição das informações daquele filme */}
     </main>
   );
 }

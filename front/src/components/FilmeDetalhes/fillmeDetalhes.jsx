@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Outlet } from 'react-router-dom';
 import BannerFilme from "../../components/BannerFilme/bannerFilme";
 import NavegacaoAbas from "../../components/Navegacao/navegacao"; // Seu componente de abas
+import CardPessoa from '../CardDiretorEAtor/cardPessoas';
 // Seu util de imagem
 const getImageUrl = (path) => { 
     if (!path) return "";
@@ -15,7 +16,6 @@ const FilmeDetalhe = () => {
     const [filme, setFilme] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // ********* A LÓGICA DE BUSCA VAI PARA AQUI *********
     useEffect(() => {
         const fetchFilme = async () => {
             try {
@@ -39,22 +39,18 @@ const FilmeDetalhe = () => {
 
         fetchFilme();
     }, [id]);
-    // ****************************************************
 
     if (loading) return <p>Carregando...</p>;
     if (!filme) return <p>Filme não encontrado.</p>;
 
     return (
         <main>
-            {/* 1. CABEÇALHO DO FILME (Permanece Fixo) */}
             <BannerFilme filme={filme} />
 
-            {/* 2. ABAS (Permanece Fixo) */}
             <NavegacaoAbas />
 
-            {/* 3. CONTEÚDO DA ABA (Muda entre Descrição/Edição) */}
-            {/* Passa os dados buscados para a rota filha */}
             <Outlet context={{ filmeData: filme, getImageUrl: getImageUrl }} /> 
+            
         </main>
     );
 };

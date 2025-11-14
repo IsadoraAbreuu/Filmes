@@ -5,7 +5,14 @@ from typing import List, Dict, Optional
 from .connection import get_connection
 from mysql.connector import Error
 
-def list_filmes(filtros_generos=None, filtros_produtoras=None) -> List[Dict]:
+# db/filmes.py (Apenas a função list_filmes alterada)
+
+from typing import List, Dict, Optional
+from .connection import get_connection
+from mysql.connector import Error
+
+# Modificação na assinatura da função: Adicionando os novos filtros
+def list_filmes(filtros_generos=None, filtros_produtoras=None, filtro_ator=None, filtro_diretor=None, filtro_ano=None) -> List[Dict]:
 
     base_sql = """
     SELECT
@@ -48,10 +55,38 @@ def list_filmes(filtros_generos=None, filtros_produtoras=None) -> List[Dict]:
         where_parts.append(f"p.nome IN ({placeholders})")
         params.extend(filtros_produtoras)
 
+    # --- NOVO: Filtro por Ator (Busca por nome ou sobrenome com LIKE) ---
+    if filtro_ator:
+        # Busca por ator onde o nome OU sobrenome contém o filtro
+        where_parts.append("(a.nome LIKE %s OR a.sobrenome LIKE %s)")
+        params.extend([f"%{filtro_ator}%", f"%{filtro_ator}%"])
+
+    # --- NOVO: Filtro por Diretor (Busca por nome ou sobrenome com LIKE) ---
+    if filtro_diretor:
+        # Busca por diretor onde o nome OU sobrenome contém o filtro
+        where_parts.append("(d.nome LIKE %s OR d.sobrenome LIKE %s)")
+        params.extend([f"%{filtro_diretor}%", f"%{filtro_diretor}%"])
+
+    # --- NOVO: Filtro por Ano ---
+    if filtro_ano:
+        # Converte para int e verifica se o valor é um número válido para filtro
+        try:
+            int(filtro_ano)
+            where_parts.append("f.ano = %s")
+            params.append(filtro_ano)
+        except ValueError:
+            pass # Ignora filtro de ano inválido
+
+
     where_clause = ""
     if where_parts:
+        # Atenção: Se houver filtros em tabelas N:M (Ator, Diretor, Genero, Produtora),
+        # é mais seguro usar HAVING CONCAT(GROUP_CONCAT...) se os joins não forem suficientes.
+        # Mas para simplificar, usaremos WHERE com os JOINS. 
+        # A instrução 'DISTINCT' e 'GROUP_CONCAT' já fazem o trabalho de agrupar.
         where_clause = "WHERE " + " AND ".join(where_parts)
 
+    # Note que a cláusula GROUP BY continua no final
     sql_final = f"{base_sql} {where_clause} GROUP BY f.id_filme ORDER BY f.titulo;"
 
     conn = get_connection()
