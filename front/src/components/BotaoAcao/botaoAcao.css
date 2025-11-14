@@ -1,0 +1,34 @@
+/* AcaoBotao.css */
+
+.acao-botao {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.acao-botao:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* Estilo para o botão Aceitar (Verde) */
+.acao-botao-accept {
+    /* Gradiente sutil de verde */
+    background: linear-gradient(180deg, #5cb85c, #4cae4c);
+}
+
+/* Estilo para o botão Recusar (Vermelho) */
+.acao-botao-reject {
+    /* Gradiente sutil de vermelho */
+    background: linear-gradient(180deg, #d9534f, #c9302c);
+}

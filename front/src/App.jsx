@@ -17,6 +17,7 @@ import Footer from "./components/Footer/footer";
 import FilmeEspecifico from "./pages/FilmeEspecifico/filmeEspecifico";
 import NavegacaoAbas from "./components/Navegacao/navegacao";
 import FilmeDetalhe from "./components/FilmeDetalhes/fillmeDetalhes";
+import AdministradorDashboard from "./pages/Administrador/administrador";
 
 // layout com Navbar e Sidebar
 function LayoutPrincipal() {
@@ -50,6 +51,7 @@ function App() {
           <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/adicionar" element={<AdicionarFilme />} />
           <Route path="/sobre" element={<SobreNos />} />
+          <Route path="/adm" element={<AdministradorDashboard />} />
           
 
           <Route path="/filme/:id" element={<FilmeDetalhe />}>

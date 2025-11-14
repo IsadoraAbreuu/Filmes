@@ -1,14 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
 import './navBar.css'
-import lupaPesquisa from '../../assets/icons/lupa-pesquisa.svg'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import SearchLupa from '../Lupa/lupa'
 
 export default function NavBar() {
   const [lupaAtiva, setLupaAtiva] = useState(false)
   const [lupaFixa, setLupaFixa] = useState(false)
   const navbarRef = useRef(null)
 
-  // fecha a lupa ao clicar fora da navbar
   useEffect(() => {
     function handleClickOutside(event) {
       if (navbarRef.current && !navbarRef.current.contains(event.target)) {
@@ -23,11 +22,6 @@ export default function NavBar() {
     }
   }, [])
 
-  // alterna o estado fixo da lupa
-  const handleLupaClick = () => {
-    setLupaFixa(!lupaFixa)
-    setLupaAtiva(!lupaFixa) // se já estava fixa, fecha
-  }
 
   return (
     <nav
@@ -44,19 +38,12 @@ export default function NavBar() {
         <li className="topicoNav">
           <Link className="rotaNav" to="/sobre">Sobre</Link>
         </li>
-        <li className="topicoNav">
-          <div
-            className={`lupaContainer ${lupaAtiva || lupaFixa ? 'ativo' : ''}`}
-            onMouseEnter={() => !lupaFixa && setLupaAtiva(true)}
-            onMouseLeave={() => !lupaFixa && setLupaAtiva(false)}
-            onClick={handleLupaClick}
-          >
-            <div className="iconeLupa">
-              <img src={lupaPesquisa} alt="ícone de busca" />
-            </div>
-            <input type="text" placeholder="Pesquisar..." />
-          </div>
-        </li>
+        <SearchLupa
+          lupaAtiva={lupaAtiva}
+          lupaFixa={lupaFixa}
+          setLupaAtiva={setLupaAtiva}
+          setLupaFixa={setLupaFixa}
+        />
       </ul>
     </nav>
   )
