@@ -1,0 +1,31 @@
+.filtro-filmes-container {
+  display: flex;
+  gap: 20px;
+  background-color: #4B4B4B;
+  border-radius: 12px;
+  padding: 16px 20px;
+  color: #fff;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  border: 1px solid #ffffff38;
+}
+
+.filtro-filmes-campo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.filtro-filmes-campo label {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.filtro-filmes-campo input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  outline: none;
+}

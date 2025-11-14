@@ -1,14 +1,10 @@
 import React from 'react';
 import './filtroProdutora.css';
 
-const FiltroProdutora = ({ nome, imagem, isSelected, onSelect, onDeselect }) => {
+const FiltroProdutora = ({ nome, foto_produtora, isSelected, onSelect, onDeselect }) => {
     
     const handleCardClick = () => {
-        if (isSelected) {
-            onDeselect(nome);
-        } else {
-            onSelect(nome);
-        }
+        isSelected ? onDeselect(nome) : onSelect(nome);
     };
 
     const handleDeselectClick = (e) => {
@@ -19,18 +15,16 @@ const FiltroProdutora = ({ nome, imagem, isSelected, onSelect, onDeselect }) => 
     const cardClasses = `filtroProdutora ${isSelected ? 'selected' : ''}`;
 
     return (
-        <div 
-            className={cardClasses}
-            onClick={handleCardClick}
-        >
+        <div className={cardClasses} onClick={handleCardClick}>
+
             <span className="iconeFiltroProdutora">
-                <img src={imagem} alt={`Logo da produtora ${nome}`} />
+                <img src={foto_produtora} alt={`Logo da produtora ${nome}`} />
             </span>
 
             <span className="textoFiltroProdutora">{nome}</span>
-            
+
             {isSelected && (
-                <button 
+                <button
                     className="deselectBotao"
                     onClick={handleDeselectClick}
                     aria-label={`Deselecionar ${nome}`}

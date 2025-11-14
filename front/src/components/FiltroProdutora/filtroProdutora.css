@@ -11,6 +11,7 @@
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.3s ease;
   position: relative;
+  border: 1px solid #ffffff38;
 }
 
 .filtroProdutora:hover {

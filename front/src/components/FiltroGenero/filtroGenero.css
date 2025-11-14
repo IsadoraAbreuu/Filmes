@@ -15,6 +15,7 @@
     color: #f0f0f0; 
     border: 1px solid transparent;
     max-width: fit-content;
+    border: 1px solid #ffffff38;
 }
 
 .filtroGenero:hover {

@@ -5,11 +5,8 @@ from typing import List, Dict, Optional
 from .connection import get_connection
 from mysql.connector import Error
 
-def list_filmes(filtros_generos=None) -> List[Dict]:
-    """
-    Lista filmes, opcionalmente filtrando por um ou mais gêneros.
-    Exemplo: filtros_generos=["Terror", "Ação"]
-    """
+def list_filmes(filtros_generos=None, filtros_produtoras=None) -> List[Dict]:
+
     base_sql = """
     SELECT
         f.id_filme,
@@ -35,15 +32,25 @@ def list_filmes(filtros_generos=None) -> List[Dict]:
     LEFT JOIN Genero_Filme gf ON f.id_filme = gf.id_filme
     LEFT JOIN Genero g ON gf.id_genero = g.id_genero
     """
-    
-    params = []
-    where_clause = ""
 
-    # Se vieram filtros de gênero, monta WHERE com IN (%s, %s, ...)
-    if filtros_generos and len(filtros_generos) > 0:
+    params = []
+    where_parts = []
+
+    # --- Filtro por gêneros ---
+    if filtros_generos:
         placeholders = ", ".join(["%s"] * len(filtros_generos))
-        where_clause = f"WHERE g.nome IN ({placeholders})"
-        params = filtros_generos
+        where_parts.append(f"g.nome IN ({placeholders})")
+        params.extend(filtros_generos)
+
+    # --- Filtro por produtoras ---
+    if filtros_produtoras:
+        placeholders = ", ".join(["%s"] * len(filtros_produtoras))
+        where_parts.append(f"p.nome IN ({placeholders})")
+        params.extend(filtros_produtoras)
+
+    where_clause = ""
+    if where_parts:
+        where_clause = "WHERE " + " AND ".join(where_parts)
 
     sql_final = f"{base_sql} {where_clause} GROUP BY f.id_filme ORDER BY f.titulo;"
 
@@ -51,11 +58,11 @@ def list_filmes(filtros_generos=None) -> List[Dict]:
     cur = conn.cursor(dictionary=True)
     try:
         cur.execute(sql_final, params)
-        rows = cur.fetchall()
-        return rows
+        return cur.fetchall()
     finally:
         cur.close()
         conn.close()
+
 
 
 # Helper para inserir/recuperar entidade simples (Produtora, Ator, Diretor, Genero)
@@ -320,14 +327,6 @@ def list_generos():
     conn = get_connection()
     cur = conn.cursor()
     cur.execute("SELECT id_genero, nome FROM Genero")
-    rows = cur.fetchall()
-    conn.close()
-    return [{"_id": r[0], "nome": r[1]} for r in rows]
-
-def list_produtoras():
-    conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT id_produtora, nome FROM Produtora")
     rows = cur.fetchall()
     conn.close()
     return [{"_id": r[0], "nome": r[1]} for r in rows]

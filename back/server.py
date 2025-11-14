@@ -59,24 +59,37 @@ class APIHandler(SimpleHTTPRequestHandler):
         path = parsed.path
         qs = parse_qs(parsed.query)
 
-        # GET /api/filmes (com suporte a filtros de gênero)
+        # GET /api/filmes (com filtros de gênero e produtora)
         if path == "/api/filmes":
             try:
                 generos_str = qs.get("generos", [None])[0] 
-                
+                produtoras_str = qs.get("produtoras", [None])[0]
+
+                # --- Filtro de gêneros ---
                 filtros_generos = []
                 if generos_str:
                     generos_decodificados = unquote(generos_str)
                     filtros_generos = [g.strip() for g in generos_decodificados.split(',')]
-                
-                filmes = filmes_db.list_filmes(filtros_generos=filtros_generos)
-                
+
+                # --- Filtro de produtoras ---
+                filtros_produtoras = []
+                if produtoras_str:
+                    produtoras_decodificadas = unquote(produtoras_str)
+                    filtros_produtoras = [m.strip() for m in produtoras_decodificadas.split(',')]
+
+                filmes = filmes_db.list_filmes(
+                    filtros_generos=filtros_generos,
+                    filtros_produtoras=filtros_produtoras
+                )
+
                 self._set_json_response(200)
                 self.wfile.write(json.dumps({"status": "ok", "data": filmes}, default=str).encode("utf-8"))
+
             except Exception as e:
                 self._set_json_response(500)
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
             return
+
 
         # GET /api/filme?id=...
         if path == "/api/filme":

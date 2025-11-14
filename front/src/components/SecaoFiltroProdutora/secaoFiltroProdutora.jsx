@@ -5,15 +5,12 @@ import './secaoFiltroProdutora.css';
 const CarrosselFiltroProdutora = ({ produtoras, filtrosAtivos, onToggleFilter }) => {
   const carrosselRef = useRef(null);
 
-  // Duplicar para efeito de loop infinito visual
   const produtorasDuplicadas = [...produtoras, ...produtoras];
 
-  // Loop contínuo (reinicia o scroll quando chega no meio)
   useEffect(() => {
     const container = carrosselRef.current;
     const handleScroll = () => {
-      const { scrollLeft, scrollWidth } = container;
-      if (scrollLeft >= scrollWidth / 2) {
+      if (container.scrollLeft >= container.scrollWidth / 2) {
         container.scrollLeft = 0;
       }
     };
@@ -23,36 +20,25 @@ const CarrosselFiltroProdutora = ({ produtoras, filtrosAtivos, onToggleFilter })
 
   const handleScrollRight = () => {
     const container = carrosselRef.current;
-    if (!container) return;
-    const scrollAmount = container.offsetWidth / 2;
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    container.scrollBy({ left: container.offsetWidth / 2, behavior: 'smooth' });
   };
-
-  const handleToggle = (nome) => onToggleFilter(nome);
 
   return (
     <div className="carrosselContainer">
       <div className="carrosselFiltros" ref={carrosselRef}>
         {produtorasDuplicadas.map((produtora, index) => (
-        
           <FiltroProdutora
             key={`${produtora.id || produtora.nome}-${index}`}
             nome={produtora.nome}
-            imagem={produtora.foto_produtora} // agora já vem pronto do backend
+            imagem={produtora.foto_produtora}
             isSelected={filtrosAtivos.includes(produtora.nome)}
-            onSelect={handleToggle}
-            onDeselect={handleToggle}
-        />
-
+            onSelect={onToggleFilter}
+            onDeselect={onToggleFilter}
+          />
         ))}
-        
       </div>
 
-      <button
-        className="seta seta-direita"
-        aria-label="Próximo"
-        onClick={handleScrollRight}
-      >
+      <button className="seta seta-direita" aria-label="Próximo" onClick={handleScrollRight}>
         ❯
       </button>
     </div>
