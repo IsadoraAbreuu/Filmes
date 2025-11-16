@@ -2,11 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './botao.css';
 
-export default function Botao({ link, texto, iconeSrc }) {
+export default function Botao({ link, texto, iconeSrc, onClick, type = 'button' }) {
 
-    return (
-        <Link to={link} className="botaoDestaque">
-            
+    const content = (
+        <>
             <div className="botaoDestaqueIcone">
                 {iconeSrc && 
                     <img src={iconeSrc} alt={`Ícone do botão ${texto}`} className="iconeBotaoImg" />
@@ -16,6 +15,24 @@ export default function Botao({ link, texto, iconeSrc }) {
             <span className="botaoDestaqueTexto">
                 {texto}
             </span>
-        </Link>
+        </>
+    );
+
+    if (link) {
+        return (
+            <Link to={link} className="botaoDestaque" onClick={onClick}>
+                {content}
+            </Link>
+        );
+    }
+    
+    return (
+        <button 
+            type={type} 
+            onClick={onClick} 
+            className="botaoDestaque"
+        >
+            {content}
+        </button>
     );
 }

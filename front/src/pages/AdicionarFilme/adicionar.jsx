@@ -1,19 +1,21 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import FormFilme from "../../components/FormFilme/formFilme";
 
 const AdicionarFilme = () => {
-  const handleNovoFilme = (filme) => {
-    console.log("Filme adicionado:", filme);
-    // aqui você pode redirecionar para a lista de filmes, ex:
-      window.location.href = "/filmes";
-  };
+  const navigate = useNavigate();
 
-  return (
-    <>
-      <FormFilme modo="add" onSubmit={handleNovoFilme} />;
-    </>
-  )
-  
+  const handleNovoFilme = (filme) => {
+    console.log("Solicitação de filme enviada:", filme);
+    // Redireciona APÓS a submissão bem-sucedida
+    navigate("/catalogo"); 
+  };
+
+  return (
+    <>
+      <FormFilme modo="add" onSubmit={handleNovoFilme} />;
+    </>
+  )
 };
 
 export default AdicionarFilme;

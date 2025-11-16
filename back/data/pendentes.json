@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "id": 1,
+    "type": "add",
+    "status": "pending",
+    "payload": {
+      "titulo": "Barraca do Beijo 2",
+      "avaliacao": "3.5",
+      "descricao": "Em A Barraca do Beijo 2, Elle (Joey King) e Noah (Jacob Elordi) tiveram o verão mais romântico de suas vidas. Entretanto, quando ele segue para Harvard, ela precisará lidar com um relacionamento a distância, a expectativa de entrar na faculdade com seu melhor amigo, Lee (Joel Courtney), e a amizade com o novo colega de classe Marco (Taylor Perez).",
+      "generos": [
+        "Comédia",
+        "Drama",
+        "Romance"
+      ],
+      "produtoras": [
+        "Komixx Entertainment"
+      ],
+      "ano": "2020",
+      "duracao": "131",
+      "poster": "https://rollingstone.com.br/wp-content/uploads/barraca_do_beijo_2_-_divulgacao.jpg",
+      "atores": [
+        "Joey King",
+        "Jacob Elordi"
+      ],
+      "diretores": [
+        "Vince Marcello"
+      ]
+    }
+  }
+]

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Outlet } from 'react-router-dom';
 import BannerFilme from "../../components/BannerFilme/bannerFilme";
 import NavegacaoAbas from "../../components/Navegacao/navegacao"; // Seu componente de abas
+import BotaoDelete from '../BotaoDelete/botaoDelete';
+import { useAuth } from '../../services/auth';
 import CardPessoa from '../CardDiretorEAtor/cardPessoas';
 // Seu util de imagem
 const getImageUrl = (path) => { 
-    if (!path) return "";
+    if (!path) return " ";
     if (path.startsWith("http")) return path;
     return `http://localhost:8000/${path}`;
 };
@@ -15,6 +17,8 @@ const FilmeDetalhe = () => {
     const { id } = useParams();
     const [filme, setFilme] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const { isAuthenticated, isAdmin } = useAuth();
 
     useEffect(() => {
         const fetchFilme = async () => {
@@ -45,6 +49,9 @@ const FilmeDetalhe = () => {
 
     return (
         <main>
+            {isAuthenticated && isAdmin && (
+                    <BotaoDelete/>
+                  )}
             <BannerFilme filme={filme} />
 
             <NavegacaoAbas />

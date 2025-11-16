@@ -26,8 +26,6 @@ function LayoutPrincipal() {
       <SideBar />
       <div className="conteudo">
         <NavBar />
-        <Notificacao />
-        <User nome="Heloisa" tipo="Comum" />
         <div className="pagina">
           <Outlet /> {/* Onde as páginas serão renderizadas */}
           <Footer />

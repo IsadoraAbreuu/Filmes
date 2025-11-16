@@ -8,6 +8,7 @@ from urllib.parse import unquote
 from pathlib import Path
 from db.connection import get_connection
 from db import filmes as filmes_db
+from db import usuarios as usuarios_db
 from cors import add_cors_headers
 
 DATA_DIR = Path(__file__).resolve().parent / "data"
@@ -211,6 +212,26 @@ class APIHandler(SimpleHTTPRequestHandler):
                 self._set_json_response(500)
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
             return
+        
+        # GET /api/pesquisar
+        if path == "/api/pesquisar":
+            termo = qs.get("q", [""])[0]
+            termo = termo.strip()
+
+            if not termo:
+                self._set_json_response(200)
+                self.wfile.write(json.dumps({"status": "ok", "data": []}).encode("utf-8"))
+                return
+
+            try:
+                resultados = filmes_db.pesquisar_filmes(termo)
+                self._set_json_response(200)
+                self.wfile.write(json.dumps({"status": "ok", "data": resultados}, ensure_ascii=False).encode("utf-8"))
+            except Exception as e:
+                self._set_json_response(500)
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode("utf-8"))
+            return
+
 
 
         # GET /api/pendentes (admin)
@@ -253,8 +274,96 @@ class APIHandler(SimpleHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = parsed.path
 
-        # Usuário solicita adicionar um novo filme (vai para pendentes.json)
+        # Rota de CADASTRO
+        if path == "/api/cadastro":
+            body = self._read_json_body()
+            usuario = body.get("usuario")
+            email = body.get("email")
+            password = body.get("password")
+
+            if not all([usuario, email, password]):
+                self._set_json_response(400)
+                self.wfile.write(json.dumps({
+                    "status": "error",
+                    "message": "Todos os campos são obrigatórios."
+                }).encode("utf-8"))
+                return
+
+            # Checagem se o usuário já existe
+            if usuarios_db.get_usuario_by_username(usuario):
+                self._set_json_response(409)
+                self.wfile.write(json.dumps({
+                    "status": "error",
+                    "message": "Usuário já cadastrado."
+                }).encode("utf-8"))
+                return
+
+            try:
+                new_id = usuarios_db.insert_usuario(usuario, email, password)
+                self._set_json_response(201)
+                self.wfile.write(json.dumps({
+                    "status": "ok",
+                    "message": "Cadastro realizado com sucesso!",
+                    "id": new_id
+                }).encode("utf-8"))
+            except Exception as e:
+                self._set_json_response(500)
+                self.wfile.write(json.dumps({
+                    "status": "error",
+                    "message": str(e)
+                }).encode("utf-8"))
+            return
+
+
+        # Rota de LOGIN
+        if path == "/api/login":
+            body = self._read_json_body()
+            usuario = body.get("usuario")
+            password = body.get("password")
+
+            if not all([usuario, password]):
+                self._set_json_response(400)
+                self.wfile.write(json.dumps({
+                    "status": "error",
+                    "message": "Usuário e senha são obrigatórios."
+                }).encode("utf-8"))
+                return
+
+            try:
+                user_data = usuarios_db.get_usuario_by_username(usuario)
+
+                if not user_data or not usuarios_db.check_password(user_data, password):
+                    self._set_json_response(401)
+                    self.wfile.write(json.dumps({
+                        "status": "error",
+                        "message": "Credenciais inválidas."
+                    }).encode("utf-8"))
+                    return
+
+                # Simulação de Token
+                token = f"fake-jwt-{user_data['id_usuario']}-{user_data['role']}"
+
+                self._set_json_response(200)
+                self.wfile.write(json.dumps({
+                    "status": "ok",
+                    "message": "Login bem-sucedido.",
+                    "token": token,
+                    "role": user_data['role'],
+                    "usuario": user_data['usuario']
+                }).encode("utf-8"))
+
+            except Exception as e:
+                self._set_json_response(500)
+                self.wfile.write(json.dumps({
+                    "status": "error",
+                    "message": str(e)
+                }).encode("utf-8"))
+            return
+
+
+        # solicitacao para adicionar um novo filme (vai para pendentes.json)
         if path == "/api/solicitar_adicao":
+            print(">>> ROTA /api/solicitar_adicao ATINGIDA")    
             body = self._read_json_body()
             
             titulo = body.get("titulo") or body.get("title")

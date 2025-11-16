@@ -1,0 +1,37 @@
+.botaoDelete{
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(90deg, #CE3B92 0%, #D85C77 50%, #E9A45B 100%);
+    border-radius: 50px;
+    padding-right: 25px; 
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
+}
+
+.botaoDelete:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.5);
+}
+
+.iconeDelete {
+    transform: rotate(90deg);
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    margin-top: 0.2rem;
+    margin-left: 0.2rem;
+    margin-bottom: 0.2rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFF 0%, #F0F0F0 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textoBotaoDelete {
+    color: white; 
+    font-size: 1.1rem;
+    font-weight: 600;
+}

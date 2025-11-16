@@ -4,41 +4,45 @@ import Logo from '../../assets/images/logo.svg'
 import MockupLogin from '../../assets/images/img-login.svg'
 
 const Login = () => {
-  const [usuario, setUsuario] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [usuario, setUsuario] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
 
-    try {
-      // requisição POST para o backend
-      const response = await fetch("http://localhost:3001/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ usuario, password }),
-      });
+    try {
+      // requisição POST para o backend
+      const response = await fetch("http://localhost:8000/api/login", { 
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ usuario, password }),
+      });
 
-      if (!response.ok) {
-        throw new Error("Credenciais inválidas");
-      }
+      if (!response.ok) {
+        const errorData = await response.json();
+        // Usa a mensagem de erro do backend se disponível
+        throw new Error(errorData.message || "Credenciais inválidas"); 
+      }
 
-      const data = await response.json();
+      const data = await response.json();
 
-      // exemplo se o backend retornar um token JWT
-      localStorage.setItem("token", data.token);
+      //guarda o token, o nivel de acesso (role) e nome do usuario no localStorage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userRole", data.role);
+      localStorage.setItem("userName", data.usuario); 
 
-      alert("Login realizado com sucesso!");
-      // redirecionar para outra página
-      window.location.href = "/dashboard";
+      alert("Login realizado com sucesso!");
+      // redirecionar para dashboard
+      window.location.href = "/home";
 
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   return (
     <div className="loginBackground">
@@ -69,8 +73,7 @@ const Login = () => {
                 placeholder="Ex: isalinda123"
             />
 
-            {error && <p className="error">{error}</p>}
-
+            {error && <p className="error" style={{color: 'red'}}>{error}</p>}
             <button type="submit">Entrar</button>
 
             <p className="cadastroTexto">

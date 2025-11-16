@@ -5,40 +5,47 @@ import Logo from '../../assets/images/logo.svg'
 
 const Cadastro = () => {
   const [usuario, setUsuario] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  // Adicione um estado para o sucesso para exibir mensagem (opcional)
+  const [success, setSuccess] = useState(""); 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccess(""); // Limpa mensagem de sucesso anterior
 
-    try {
-      // requisição POST para o backend
-      const response = await fetch("http://localhost:3001/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ usuario, password }),
-      });
+    try {
+      // requisição POST para o backend
+      const response = await fetch("http://localhost:8000/api/cadastro", { // 🛑 CORREÇÃO DA PORTA E ROTA
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ usuario, email, password }), // Envia 'email'
+      });
 
-      if (!response.ok) {
-        throw new Error("Credenciais inválidas");
-      }
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erro no cadastro");
+      }
 
-      const data = await response.json();
+      const data = await response.json();
+      setSuccess(data.message || "Cadastro realizado com sucesso!");
+      alert("Cadastro realizado com sucesso")
+      
+      // Opcional: Limpar campos após sucesso
+      setUsuario("");
+      setEmail("");
+      setPassword("");
 
-      // exemplo se o backend retornar um token JWT
-      localStorage.setItem("token", data.token);
-
-      alert("Login realizado com sucesso!");
-      // redirecionar para outra página
-      window.location.href = "/dashboard";
-
-    } catch (err) {
-      setError(err.message);
-    }
+      // Redirecionar para login ou dashboard após sucesso
+      window.location.href = "/login"; // Descomente para redirecionar
+      
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
@@ -88,7 +95,8 @@ const Cadastro = () => {
                 placeholder="Ex: isalinda123"
             />
 
-            {error && <p className="error">{error}</p>}
+            {error && <p className="error" style={{color: 'red'}}>{error}</p>}
+            {success && <p className="success" style={{color: 'green'}}>{success}</p>}
 
             <button type="submit">Cadastrar</button>
 

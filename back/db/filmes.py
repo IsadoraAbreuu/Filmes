@@ -1,15 +1,10 @@
 # funções de CRUD no banco
-
 # Funções de acesso ao banco (listar, buscar, inserir, atualizar).
-from typing import List, Dict, Optional
-from .connection import get_connection
-from mysql.connector import Error
-
-# db/filmes.py (Apenas a função list_filmes alterada)
 
 from typing import List, Dict, Optional
 from .connection import get_connection
 from mysql.connector import Error
+
 
 # Modificação na assinatura da função: Adicionando os novos filtros
 def list_filmes(filtros_generos=None, filtros_produtoras=None, filtro_ator=None, filtro_diretor=None, filtro_ano=None) -> List[Dict]:
@@ -399,12 +394,61 @@ def list_filmes_por_genero(nome_genero: str) -> List[Dict]:
     conn = get_connection()
     cur = conn.cursor(dictionary=True)
     try:
-        cur.execute(sql, (nome_genero,))  # ✅ Passa o parâmetro corretamente
+        cur.execute(sql, (nome_genero,))  
         rows = cur.fetchall()
         return rows
     finally:
         cur.close()
         conn.close()
+
+def pesquisar_filmes(termo: str) -> List[Dict]:
+    termo_like = f"%{termo}%"
+
+    params_like = [termo_like] * 5  # 5 vezes para titulo, a.nome, a.sobrenome, d.nome, d.sobrenome
+
+    # Verifica se o termo pode ser um ano (4 dígitos)
+    is_year = termo.isdigit() and len(termo) == 4
+
+    sql = """
+    SELECT DISTINCT
+        f.id_filme,
+        f.titulo
+    FROM Filme f
+    LEFT JOIN Ator_Filme af ON f.id_filme = af.id_filme
+    LEFT JOIN Ator a ON af.id_ator = a.id_ator
+    LEFT JOIN Diretor_Filme df ON f.id_filme = df.id_filme
+    LEFT JOIN Diretor d ON df.id_diretor = d.id_diretor
+    WHERE
+        f.titulo LIKE %s
+        OR a.nome LIKE %s
+        OR a.sobrenome LIKE %s
+        OR d.nome LIKE %s
+        OR d.sobrenome LIKE %s
+    """
+    
+    params = params_like
+    
+    # Adiciona a busca por ano se for um número de 4 dígitos
+    if is_year:
+        sql += " OR f.ano = %s"
+        params.append(termo)
+        
+    sql += """
+    GROUP BY f.id_filme
+    ORDER BY f.titulo
+    LIMIT 12;
+    """
+
+    conn = get_connection()
+    cur = conn.cursor(dictionary=True)
+    try:
+        # AQUI AGORA PASSAMOS OS PARÂMETROS CORRETAMENTE
+        cur.execute(sql, params) 
+        return cur.fetchall()
+    finally:
+        cur.close()
+        conn.close()
+
 
 
 
